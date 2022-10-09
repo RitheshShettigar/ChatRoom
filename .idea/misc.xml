@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/edittext.xml" value="0.204" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/ic_call.xml" value="0.1965" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/ic_chats.xml" value="0.1965" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1985" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/ic_search.xml" value="0.1965" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/menu.xml" value="0.1965" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/recivershape.xml" value="0.1985" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/roundedbutton.xml" value="0.128" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable-v24/user.xml" value="0.1965" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/backgroundbok.xml" value="0.171" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/empty_bac.xml" value="0.1985" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1985" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/sendershape.xml" value="3.2" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/shape_item.xml" value="0.197" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_add_librarian.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_add_user.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_chat.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_dashboad.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_home.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_home2.xml" value="0.2427536231884058" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_login1.xml" value="0.2427536231884058" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_main.xml" value="0.2427536231884058" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_otpverification.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_password_reset.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_splash_scree.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_status.xml" value="0.2359375" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_list.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_name.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/logoutdilog_activity.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/logoutdilog_layout.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/main_bottom.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/main_nav_drawer.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/main_toolbar.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/menu.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/otp_item.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/reciver_layout.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/row_conversation.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/sditem.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/sender_layout.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/user_item.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/menu/chat_menu.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/menu/menu.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/menu/menu1.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/menu/topmenu.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11 (3)" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

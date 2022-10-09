@@ -1,0 +1,111 @@
+package com.example.loginpage.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import com.example.loginpage.Adapter.UserAdapter;
+import com.example.loginpage.ModelClass.modelUser;
+import com.example.loginpage.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class UserListActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    UserAdapter uadapter;
+    ArrayList<modelUser> list;
+    DatabaseReference root= FirebaseDatabase.getInstance().getReference("User");
+    ProgressBar progress;
+    FirebaseAuth auth;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_list);
+
+
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.userlist);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.status:
+                        startActivity(new Intent(getApplicationContext(),StatusActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.userlist:
+                        return true;
+
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
+
+        recyclerView=findViewById(R.id.mainUserRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        list= new ArrayList<>();
+        uadapter=new UserAdapter(this,list);
+        recyclerView.setAdapter(uadapter);
+
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    modelUser modelUser=dataSnapshot.getValue(modelUser.class);
+                    list.add(modelUser);
+
+                }
+                uadapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        auth=FirebaseAuth.getInstance();
+        if(auth.getCurrentUser()==null){
+            startActivity(new Intent(UserListActivity.this,RegisterActivity.class));
+        }
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.topmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+}

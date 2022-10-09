@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".Activity.OTPVerificationActivity">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/otp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify your phone number"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please enter the OTP sent to you"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/phnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:background="@drawable/backgroundbok"
+            android:id="@+id/input1"
+            android:textAlignment="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:textStyle="bold"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:background="@drawable/backgroundbok"
+            android:id="@+id/input2"
+            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:textStyle="bold"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:background="@drawable/backgroundbok"
+            android:id="@+id/input3"
+            android:layout_marginLeft="10dp"
+            android:textAlignment="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:textStyle="bold"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:background="@drawable/backgroundbok"
+            android:id="@+id/input4"
+            android:layout_width="40dp"
+            android:layout_marginLeft="10dp"
+
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:textStyle="bold"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:background="@drawable/backgroundbok"
+            android:id="@+id/input5"
+            android:layout_width="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:background="@drawable/backgroundbok"
+            android:id="@+id/input6"
+            android:layout_width="40dp"
+            android:textAlignment="center"
+            android:layout_marginLeft="10dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:textStyle="bold"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:imeOptions="actionNext"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Didn't receive the OTP"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/resendotp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Resend OTP Again"
+            android:textStyle="bold"
+            android:textSize="19sp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:text="verify"
+        android:id="@+id/verify"
+        android:backgroundTint="#9909D832"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_gravity="center"
+        android:layout_height="100dp"
+        android:id="@+id/progress2"/>
+
+
+</LinearLayout>
