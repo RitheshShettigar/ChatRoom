@@ -48,7 +48,10 @@ public class UserListActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.status:
-                        startActivity(new Intent(getApplicationContext(),StatusActivity.class));
+                        Intent intent=new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(intent,75);
                         overridePendingTransition(0,0);
                         return true;
 

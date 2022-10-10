@@ -119,18 +119,18 @@ public class HomeActivity extends AppCompatActivity {
                         status.setProfileImage(storySnapshot.child("profileImage").getValue(String.class));
                         status.setLastUpdate(storySnapshot.child("lastUpdated").getValue(Long.class));
 
-                       // ArrayList<Status> statuses = new ArrayList<>();
+                        ArrayList<Status> statuses = new ArrayList<>();
 
-                     //   for(DataSnapshot statusSnapshot : storySnapshot.child("statuses").getChildren()) {
-                        //    Status sampleStatus = statusSnapshot.getValue(Status.class);
-                       //     statuses.add(sampleStatus);
-                       // }
+                        for(DataSnapshot statusSnapshot : storySnapshot.child("status").getChildren()) {
+                           Status sampleStatus = statusSnapshot.getValue(Status.class);
+                           statuses.add(sampleStatus);
+                        }
 
-                      //  status.setStatuses(statuses);
+                       status.setStatuses(statuses);
                         userStatuses.add(status);
                     }
-                 //   binding.statusList.hideShimmerAdapter();
-                  //  statusAdapter.notifyDataSetChanged();
+                    //binding.statusList.hideShimmerAdapter();
+                  // statusAdapter.notifyDataSetChanged();
                 }
             }
 

@@ -9,10 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.devlomi.circularstatusview.CircularStatusView;
+import com.example.loginpage.Activity.HomeActivity;
+import com.example.loginpage.ModelClass.Status;
 import com.example.loginpage.ModelClass.UserStatus;
 import com.example.loginpage.R;
 
+
+
+
 import java.util.ArrayList;
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,6 +40,19 @@ public class TopStatusAdapter extends RecyclerView.Adapter<TopStatusAdapter.TopS
 
     @Override
     public void onBindViewHolder(@NonNull TopStatusViewHolder holder, int position) {
+
+        UserStatus userStatus=userStatuses.get(position);
+
+        holder.circular_status_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            //    ArrayList<StoryModel> uris = new ArrayList<>();
+
+
+            }
+        });
 
     }
 
