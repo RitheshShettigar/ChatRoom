@@ -9,7 +9,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="610dp"
+        android:layout_height="613dp"
         android:id="@+id/mainUserRecyclerView"
         tools:ignore="MissingConstraints" />
 
