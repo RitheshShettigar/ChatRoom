@@ -36,6 +36,7 @@
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_list.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_name.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_view_friend.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/item_status.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/logoutdilog_activity.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/logoutdilog_layout.xml" value="0.25" />
@@ -46,6 +47,8 @@
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/otp_item.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/reciver_layout.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/row_conversation.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/row_coversation.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/row_coversation2.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/sditem.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/sender_layout.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/user_item.xml" value="0.25" />

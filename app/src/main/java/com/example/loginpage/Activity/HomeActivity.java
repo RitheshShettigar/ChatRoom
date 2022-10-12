@@ -19,8 +19,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.loginpage.Adapter.FriendHomeAdapter;
 import com.example.loginpage.Adapter.MessageAdapter;
 import com.example.loginpage.Adapter.TopStatusAdapter;
+import com.example.loginpage.Adapter.UserAdapter;
+import com.example.loginpage.ModelClass.FriendHomemodel;
 import com.example.loginpage.ModelClass.Status;
 import com.example.loginpage.ModelClass.UserStatus;
 import com.example.loginpage.ModelClass.modelUser;
@@ -30,9 +33,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -44,7 +50,7 @@ import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity {
 
-
+    String RUid;
     FirebaseAuth auth;
     RecyclerView recyclerView;
     ArrayList<UserStatus>userStatuses;
@@ -58,8 +64,20 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+  // ArrayList<FriendHomemodel>option;
+  // FriendHomeAdapter adapter;
+  // RecyclerView recyclerView1;
+   FirebaseAuth mAuth;
+  // DatabaseReference mRef;
+   FirebaseUser mUser;
 
 
+
+
+
+    FriendHomeAdapter friendHomeAdapter;
+    ArrayList<FriendHomemodel> friendHomemodelArrayList;
+ // DatabaseReference root= FirebaseDatabase.getInstance().getReference("Friend");
 
 
     @Override
@@ -67,8 +85,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        statuslist=findViewById(R.id.statusList)
-        ;
+        // RUid=getIntent().getStringExtra("uid1");
+       // Toast.makeText(this, RUid, Toast.LENGTH_SHORT).show();
+
+        statuslist=findViewById(R.id.statusList);
         database=FirebaseDatabase.getInstance();
 
         prog3=new ProgressDialog(this);
@@ -85,12 +105,64 @@ public class HomeActivity extends AppCompatActivity {
      //statuslist.setLayoutManager(layoutManager);
      //userStatuses= new ArrayList<>();
 
+
+     //   recyclerView.setHasFixedSize(true);
+      //
+       // friendHomemodelArrayList= new ArrayList<>();
+       // friendHomeAdapter =new FriendHomeAdapter(this,friendHomemodelArrayList);
+      //  recyclerView.setAdapter( friendHomeAdapter );
+        recyclerView=findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        friendHomemodelArrayList= new ArrayList<>();
+        mAuth=FirebaseAuth.getInstance();
+        mUser=mAuth.getCurrentUser();
+        friendHomeAdapter=new FriendHomeAdapter(this,friendHomemodelArrayList);
+        recyclerView.setAdapter(friendHomeAdapter);
+        DatabaseReference root=FirebaseDatabase.getInstance().getReference("Friends").child(mUser.getUid());
+
+
+
+
+
+
+
+
+
+      //  recyclerView=findViewById(R.id.recyclerView);
+      //  recyclerView.setHasFixedSize(true);
+      //  recyclerView.setLayoutManager(new LinearLayoutManager(this));
+      //  listf= new ArrayList<>();
+      //  friendHomeAdapter=new FriendHomeAdapter(this,listf);
+      //  recyclerView.setAdapter(friendHomeAdapter);
+
+
+
+     root.addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+             friendHomemodelArrayList.clear();
+             for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                 FriendHomemodel friendHomemodel=dataSnapshot.
+                         getValue(FriendHomemodel.class);
+                 friendHomemodelArrayList.add(friendHomemodel);
+             }
+             friendHomeAdapter.notifyDataSetChanged();
+         }
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+         }
+     });
+
+
+
         recyclerView=findViewById(R.id.statusList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         userStatuses= new ArrayList<>();
         statusadapter=new TopStatusAdapter(this,userStatuses);
         recyclerView.setAdapter(statusadapter);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
@@ -176,6 +248,20 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(new Intent(HomeActivity.this,RegisterActivity.class));
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //Status
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -285,6 +371,8 @@ public class HomeActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
 
 
 

@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginPage">
         <activity
+            android:name=".Activity.ViewFriendActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.ViewFriendActivity"/>
+        <activity
             android:name=".Activity.CallActivity"
             android:exported="false" />
         <activity

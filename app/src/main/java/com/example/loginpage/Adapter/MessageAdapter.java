@@ -138,7 +138,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
             //time
 
-            String senderId=FirebaseAuth.getInstance().getUid();
+           /* String senderId=FirebaseAuth.getInstance().getUid();
             String senderRoom=senderId+messageModel.getId() ;
             FirebaseDatabase.getInstance().getReference()
                     .child("chats")
@@ -165,7 +165,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                         public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    });
+                    });*/
 
             //end time
 
@@ -197,7 +197,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
             //time
 
-            String senderId=FirebaseAuth.getInstance().getUid();
+           /* String senderId=FirebaseAuth.getInstance().getUid();
             String senderRoom=senderId+messageModel.getId() ;
             FirebaseDatabase.getInstance().getReference()
                     .child("chats")
@@ -225,7 +225,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                         public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    });
+                    });*/
 
             //end time
 
