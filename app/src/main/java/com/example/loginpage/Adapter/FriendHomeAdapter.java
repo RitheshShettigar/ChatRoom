@@ -88,14 +88,14 @@ public class FriendHomeAdapter  extends RecyclerView.Adapter<FriendHomeAdapter.V
         }
 
         holder.Username.setText(friendHomemodel.getUsername());
-        Glide.with(context).load(listf.get(position).getProfileImageUrl()).into(holder.Image);
+        Glide.with(context).load(listf.get(position).getImageuri()).into(holder.Image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, ChatActivity.class);
                 intent.putExtra("name",friendHomemodel.getUsername());
-                intent.putExtra("ReciverImage", friendHomemodel.getProfileImageUrl());
+                intent.putExtra("ReciverImage", friendHomemodel.getImageuri());
                 intent.putExtra("uid", friendHomemodel.getId());
 
                 context.startActivity(intent);

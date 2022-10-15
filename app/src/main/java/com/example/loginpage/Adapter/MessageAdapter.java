@@ -133,6 +133,25 @@ public class MessageAdapter extends RecyclerView.Adapter {
         if(holder.getClass()==SenderViewHolder.class)
         {
             SenderViewHolder viewHolder=(SenderViewHolder)holder;
+            //send image
+            if(messageModel.getMessage().equals("Photo")){
+                viewHolder.ssimage.setVisibility(View.VISIBLE);
+                viewHolder.stxtmessage.setVisibility(View.GONE);
+                Picasso.get().load(messageModel.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.ssimage);
+
+
+           /*  viewHolder.ssimage.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popup.onTouch(view,motionEvent);
+                        // Toast.makeText(context,messageModel.getMessageId(), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });*/
+
+            }
+            //send image end
+
             viewHolder.stxtmessage.setText(messageModel.getMessage());
             Picasso.get().load(simage).into(viewHolder.scircleImageView);
 
@@ -178,19 +197,38 @@ public class MessageAdapter extends RecyclerView.Adapter {
             viewHolder.felling.setVisibility(View.GONE);
         }
 
-            viewHolder.stxtmessage.setOnTouchListener(new View.OnTouchListener() {
+          /*  viewHolder.stxtmessage.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     popup.onTouch(view,motionEvent);
                   // Toast.makeText(context,messageModel.getMessageId(), Toast.LENGTH_SHORT).show();
                     return false;
                 }
-            });
+            });*/
             //end reaction
 
         }else{
 
             ReciverViewHolder viewHolder=(ReciverViewHolder) holder;
+            //send image
+            if(messageModel.getMessage().equals("Photo")){
+                viewHolder.rrimage.setVisibility(View.VISIBLE);
+                viewHolder.rtxtmessage.setVisibility(View.GONE);
+                Picasso.get().load(messageModel.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.rrimage);
+
+
+             /*  viewHolder.rrimage.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popup.onTouch(view,motionEvent);
+                        // Toast.makeText(context,messageModel.getMessageId(), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });*/
+
+            }
+            //send image end
+
             viewHolder.rtxtmessage.setText(messageModel.getMessage());
             Picasso.get().load(rimage).into(viewHolder.rcircleImageView);
 
@@ -240,13 +278,15 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
 
 
-            viewHolder.rtxtmessage.setOnTouchListener(new View.OnTouchListener() {
+           /* viewHolder.rtxtmessage.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     popup.onTouch(view,motionEvent);
+                  //  Toast.makeText(context,messageModel.getImageUrl(), Toast.LENGTH_SHORT).show();
                     return false;
+
                 }
-            });
+            });*/
             //end reaction
 
         }
@@ -272,7 +312,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     class SenderViewHolder extends RecyclerView.ViewHolder{
         CircleImageView scircleImageView;
         TextView stxtmessage,stime;
-        ImageView felling;
+        ImageView felling,ssimage;
 
         public SenderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -280,6 +320,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
             stxtmessage=itemView.findViewById(R.id.stxtMessage);
             felling=itemView.findViewById(R.id.feeling);
             stime=itemView.findViewById(R.id.time);
+            ssimage=itemView.findViewById(R.id.ssimage);
 
 
         }
@@ -288,7 +329,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     class ReciverViewHolder extends RecyclerView.ViewHolder{
         CircleImageView rcircleImageView;
         TextView rtxtmessage,rtime;
-        ImageView felling;
+        ImageView felling,rrimage;
 
 
         public ReciverViewHolder(@NonNull View itemView) {
@@ -297,6 +338,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
             rtxtmessage=itemView.findViewById(R.id.rtxtMessage);
             felling=itemView.findViewById(R.id.feeling);
             rtime=itemView.findViewById(R.id.time);
+            rrimage=itemView.findViewById(R.id.rrimage);
 
 
         }

@@ -5,40 +5,68 @@
     android:layout_marginRight="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/rimage"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/person"
-        app:civ_border_color="#7e47f5"
-        app:civ_border_width="2dp" />
 
 
 
-    <TextView
-        android:id="@+id/rtxtMessage"
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/rimage"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/person"
+            app:civ_border_color="#7e47f5"
+            app:civ_border_width="2dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@id/rimage"
+        android:layout_toRightOf="@+id/rimage"
         android:background="@drawable/recivershape"
-        android:padding="7dp"
-        android:text="sssss"
-        android:textColor="@color/white"
-        android:textSize="17sp" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/rtxtMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:textColor="@color/white"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="TextView"
+            android:textSize="13sp" />
+
+
+    <ImageView
+        android:id="@+id/rrimage"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:layout_margin="5dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:srcCompat="@drawable/avatar" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/feeling"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:visibility="invisible"
-        android:layout_toRightOf="@id/rtxtMessage"
+        android:layout_toRightOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:srcCompat="@drawable/ic_fb_love" />
+
 
 
 </RelativeLayout>

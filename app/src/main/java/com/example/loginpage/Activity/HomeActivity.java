@@ -47,37 +47,30 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    String RUid;
     FirebaseAuth auth;
     RecyclerView recyclerView;
     ArrayList<UserStatus>userStatuses;
-   // ArrayList<modelUser>modelUsers;
+
     TopStatusAdapter statusadapter;
     ProgressDialog prog3;
     RecyclerView statuslist;
     modelUser User;
     FirebaseDatabase database;
-    FirebaseStorage firebaseStorage;
 
+    private List<String>friendList1;
+    FriendHomeAdapter friendHomeAdapter;
+    ArrayList<FriendHomemodel> friendHomemodelArrayList;
 
-
-  // ArrayList<FriendHomemodel>option;
-  // FriendHomeAdapter adapter;
-  // RecyclerView recyclerView1;
-   FirebaseAuth mAuth;
-  // DatabaseReference mRef;
+    FirebaseAuth mAuth;
    FirebaseUser mUser;
 
 
 
 
-
-    FriendHomeAdapter friendHomeAdapter;
-    ArrayList<FriendHomemodel> friendHomemodelArrayList;
- // DatabaseReference root= FirebaseDatabase.getInstance().getReference("Friend");
 
 
     @Override
@@ -85,15 +78,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // RUid=getIntent().getStringExtra("uid1");
-       // Toast.makeText(this, RUid, Toast.LENGTH_SHORT).show();
-
         statuslist=findViewById(R.id.statusList);
         database=FirebaseDatabase.getInstance();
 
         prog3=new ProgressDialog(this);
         prog3.setMessage("Uploading image....");
         prog3.setCancelable(false);
+
+      friendHomemodelArrayList=new ArrayList<>();
 
 
 //Status
@@ -111,52 +103,18 @@ public class HomeActivity extends AppCompatActivity {
        // friendHomemodelArrayList= new ArrayList<>();
        // friendHomeAdapter =new FriendHomeAdapter(this,friendHomemodelArrayList);
       //  recyclerView.setAdapter( friendHomeAdapter );
-        recyclerView=findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        friendHomemodelArrayList= new ArrayList<>();
-        mAuth=FirebaseAuth.getInstance();
-        mUser=mAuth.getCurrentUser();
-        friendHomeAdapter=new FriendHomeAdapter(this,friendHomemodelArrayList);
-        recyclerView.setAdapter(friendHomeAdapter);
-        DatabaseReference root=FirebaseDatabase.getInstance().getReference("Friends").child(mUser.getUid());
 
 
+       recyclerView=findViewById(R.id.recyclerView);
+       recyclerView.setHasFixedSize(true);
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       mAuth=FirebaseAuth.getInstance();
+       mUser=mAuth.getCurrentUser();
 
 
+       checkfriend();
 
-
-
-
-
-      //  recyclerView=findViewById(R.id.recyclerView);
-      //  recyclerView.setHasFixedSize(true);
-      //  recyclerView.setLayoutManager(new LinearLayoutManager(this));
-      //  listf= new ArrayList<>();
-      //  friendHomeAdapter=new FriendHomeAdapter(this,listf);
-      //  recyclerView.setAdapter(friendHomeAdapter);
-
-
-
-     root.addValueEventListener(new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull DataSnapshot snapshot) {
-             friendHomemodelArrayList.clear();
-             for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                 FriendHomemodel friendHomemodel=dataSnapshot.
-                         getValue(FriendHomemodel.class);
-                 friendHomemodelArrayList.add(friendHomemodel);
-             }
-             friendHomeAdapter.notifyDataSetChanged();
-         }
-         @Override
-         public void onCancelled(@NonNull DatabaseError error) {
-         }
-     });
-
-
-
-        recyclerView=findViewById(R.id.statusList);
+       recyclerView=findViewById(R.id.statusList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         userStatuses= new ArrayList<>();
@@ -201,8 +159,6 @@ public class HomeActivity extends AppCompatActivity {
                        status.setStatuses(statuses);
                         userStatuses.add(status);
                     }
-                    //binding.statusList.hideShimmerAdapter();
-                  // statusAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -251,15 +207,56 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+    private void checkfriend() {
 
+        friendList1=new ArrayList<>();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Friends").child(mUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    friendList1.add(snapshot.getKey());
+                   // Toast.makeText(HomeActivity.this, friendList1.toString(), Toast.LENGTH_SHORT).show();
+                }
+              readuser2();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
 
+    private void readuser2() {
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("User");
 
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friendHomemodelArrayList.clear();
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                   FriendHomemodel modelUser=dataSnapshot.getValue(FriendHomemodel.class);
+                    for (String  id : friendList1){
+                        if(modelUser.getId().equals(id)){
+                            friendHomemodelArrayList.add(modelUser);
 
+                        }
+                    }
 
+                }
+                friendHomeAdapter= new FriendHomeAdapter(HomeActivity.this,friendHomemodelArrayList);
+                recyclerView.setAdapter(friendHomeAdapter);
 
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
 
     //Status
@@ -314,8 +311,6 @@ public class HomeActivity extends AppCompatActivity {
            }
        }
     }
-
-
     //Status end
 
 

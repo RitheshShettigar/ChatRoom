@@ -38,7 +38,8 @@
         <activity
             android:name=".Activity.ChatActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.ChatActivity" />
+            android:theme="@style/Theme.LoginPage.NoActionBar"
+            />
         <activity
             android:name=".Activity.PasswordResetActivity"
             android:exported="false" />

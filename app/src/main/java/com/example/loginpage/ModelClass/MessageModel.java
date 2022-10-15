@@ -2,7 +2,7 @@ package com.example.loginpage.ModelClass;
 
 public class MessageModel {
 
-    String message;
+    String message,imageUrl;
     String id;
     String senderId,messageId;
   private  long timestamp;
@@ -63,4 +63,13 @@ public class MessageModel {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 }

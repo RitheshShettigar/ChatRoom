@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.loginpage.ModelClass.modelUser;
 import com.example.loginpage.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,9 +37,12 @@ public class ViewFriendActivity extends AppCompatActivity {
     Button btnRequest,btnDecline;
     String CurrentState="nothing_happen";
 
+
+
     DatabaseReference requestRef,friendRef,mUserRef, friendRef1;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+    String RUid;
    // FirebaseDatabase firebaseDatabase;
 
 
@@ -50,7 +55,7 @@ public class ViewFriendActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        String RUid=getIntent().getStringExtra("uid");
+       RUid=getIntent().getStringExtra("uid");
         Toast.makeText(this, RUid, Toast.LENGTH_SHORT).show();
 
        // Intent intent=new Intent();
@@ -287,16 +292,16 @@ public class ViewFriendActivity extends AppCompatActivity {
                     {
                         final HashMap hashMap=new HashMap();
                         hashMap.put("status","friend");
-                        hashMap.put("username",RName);
-                        hashMap.put("profileImageUrl",RImage);
-                        friendRef.child(mUser.getUid()).child(RUid).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
+                       // hashMap.put("username",RName);
+                      //  hashMap.put("profileImageUrl",RImage);
+                        friendRef.child(mUser.getUid()).child(RUid).updateChildren(hashMap).addOnCompleteListener((task1) -> {
+                           // @Override
+                         //   public void onComplete(@NonNull Task task) {
                                 if(task.isSuccessful())
                                 {
-                                    friendRef.child(RUid).child(mUser.getUid()).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
-                                        @Override
-                                        public void onComplete(@NonNull Task task) {
+                                    friendRef.child(RUid).child(mUser.getUid()).updateChildren(hashMap).addOnCompleteListener((task2) -> {
+                                     //   @Override
+                                     //   public void onComplete(@NonNull Task task) {
                                             Toast.makeText(ViewFriendActivity.this, "You added Friend", Toast.LENGTH_SHORT).show();
                                             CurrentState="friend";
                                             btnRequest.setText("Send SMS");
@@ -304,26 +309,20 @@ public class ViewFriendActivity extends AppCompatActivity {
                                             btnDecline.setVisibility(View.VISIBLE);
 
 
-
-
-                                        }
                                     });
-
-
-
                                 }
-                            }
-                        }) ;
 
+                        });
                     }
-
                 }
             });
         }
         //except friend or cancelled
         if(CurrentState.equals("friend"))
         {
-            //
+
+            Intent intent=new Intent(ViewFriendActivity.this,ChatActivity.class);
+            intent.putExtra("OtherUserId",RUid);
         }
 
     }

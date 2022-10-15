@@ -42,6 +42,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.Viewholder>{
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_conversation,parent,false);
+
         return new Viewholder(view);
     }
 

@@ -50,14 +50,14 @@ public class LoginActivity extends AppCompatActivity {
         prog1.setMessage("Please wait....");
         prog1.setCancelable(false);
 
-        otp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
+     //  otp.setOnClickListener(new View.OnClickListener() {
+     //      @Override
+     //      public void onClick(View view) {
+     //          Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+     //          startActivity(intent);
 
-            }
-        });
+     //      }
+     //  });
 
 
 
