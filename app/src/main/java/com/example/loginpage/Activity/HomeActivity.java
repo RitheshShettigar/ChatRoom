@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -80,6 +81,25 @@ public class HomeActivity extends AppCompatActivity {
 
         statuslist=findViewById(R.id.statusList);
         database=FirebaseDatabase.getInstance();
+
+        //notification code
+        database=FirebaseDatabase.getInstance();
+        FirebaseMessaging.getInstance()
+                .getToken()
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String token) {
+                      HashMap<String, Object> map = new HashMap<>();
+                      map.put("token", token);
+                      database.getReference()
+                              .child("User")
+                              .child(FirebaseAuth.getInstance().getUid())
+                              .updateChildren(map);
+                        //Toast.makeText(HomeActivity.this, token, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        //notification code end
 
         prog3=new ProgressDialog(this);
         prog3.setMessage("Uploading image....");
@@ -205,6 +225,21 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    //status online offline
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String currentId = FirebaseAuth.getInstance().getUid();
+        database.getReference().child("presence").child(currentId).setValue("Online");
+    }
+
+     @Override
+     protected void onPause() {
+         super.onPause();
+         String currentId = FirebaseAuth.getInstance().getUid();
+         database.getReference().child("presence").child(currentId).setValue("Offline");
+     }
+    //status online offline end
 
 
     private void checkfriend() {
@@ -366,9 +401,6 @@ public class HomeActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
-
 
 
 }

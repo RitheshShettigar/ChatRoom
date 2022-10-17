@@ -12,6 +12,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -20,7 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.loginpage.Adapter.MessageAdapter;
 import com.example.loginpage.ModelClass.MessageModel;
 import com.example.loginpage.R;
@@ -43,10 +53,13 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,16 +68,20 @@ public class ChatActivity extends AppCompatActivity {
 
     String ReciverImage,ReciverUid,ReciverName,SenderUid;
     CircleImageView Image;
-    TextView Name;
-    ImageView attachment,camera;
+    TextView Name,status;
+    ImageView attachment,camera,imageView2;
    ImageView Sender;
     EditText msgtype1;
+   // Toolbar toolbar;
     FirebaseDatabase database;
     FirebaseAuth auth;
     public static String simage;
     public static String rimage;
 
+
     String senderRoom,reciverRoom;
+
+   // RequestQueue requestQueue;
 
     RecyclerView recyclerView;
     ArrayList<MessageModel>messageModelArrayList;
@@ -87,7 +104,9 @@ public class ChatActivity extends AppCompatActivity {
         prog4.setMessage("Uploading fill....");
         prog4.setCancelable(false);
 
+      //  requestQueue = Volley.newRequestQueue(this);
 
+      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         database=FirebaseDatabase.getInstance();
         auth=FirebaseAuth.getInstance();
@@ -97,7 +116,18 @@ public class ChatActivity extends AppCompatActivity {
         msgtype1=findViewById(R.id.msgtype);
         attachment=findViewById(R.id.attachment);
         camera=findViewById(R.id.camera);
+        imageView2=findViewById(R.id.imageView2);
+        status=findViewById(R.id.status);
 
+
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ChatActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
        recyclerView=findViewById(R.id.messageadapter1);
@@ -114,6 +144,8 @@ public class ChatActivity extends AppCompatActivity {
         ReciverName=intent.getStringExtra("name");
         ReciverImage=getIntent().getStringExtra("ReciverImage");
         ReciverUid=getIntent().getStringExtra("uid");
+        String token=getIntent().getStringExtra("token");
+       // Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
 
 
         Image=findViewById(R.id.image);
@@ -130,6 +162,61 @@ public class ChatActivity extends AppCompatActivity {
 
         DatabaseReference reference=database.getReference().child("User").child(auth.getUid());
         DatabaseReference chatreference=database.getReference().child("chats").child(senderRoom).child("messages");
+
+
+        //status online offline
+        database.getReference().child("presence").child(ReciverUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String Status=snapshot.getValue(String.class);
+                    if(!Status.isEmpty()){
+                        if(Status.equals("offline")){
+                            status.setVisibility(View.GONE);
+                        }else {
+                            status.setText(Status);
+                            status.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //status online offline end
+
+        //typing show
+        final Handler handler = new Handler();
+        msgtype1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+              database.getReference().child("presence").child(SenderUid).setValue("typing...");
+                handler.removeCallbacksAndMessages(null);
+                handler.postDelayed(userStoppedTyping,1000);
+
+            }
+
+            Runnable userStoppedTyping = new Runnable() {
+                @Override
+                public void run() {
+                    database.getReference().child("presence").child(SenderUid).setValue("Online");
+                }
+            };
+        });
+        //typing show end
 
 
         chatreference.addValueEventListener(new ValueEventListener() {
@@ -198,11 +285,14 @@ public class ChatActivity extends AppCompatActivity {
                                 .child(reciverRoom)
                                 .child("messages")
                                 .child(randomkey)
-                                .setValue(messageModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                .setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                            public void onSuccess(Void unused) {
+                                sendNotification(ReciverName, messageModel.getMessage(),token);
+
                             }
                         });
+
 
                     }
                 });
@@ -223,6 +313,53 @@ public class ChatActivity extends AppCompatActivity {
         //attachment go to gallery end
 
     }
+
+    //send msg notification
+    void sendNotification(String name,String message,String token){
+        try {
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url="https://fcm.googleapis.com/fcm/send";
+
+
+            JSONObject data = new JSONObject();
+            data.put("title", name);
+            data.put("body", message);
+            JSONObject notificationData = new JSONObject();
+            notificationData.put("notification", data);
+            notificationData.put("to", token);
+
+            JsonObjectRequest request = new JsonObjectRequest(url, notificationData
+                    , new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Toast.makeText(ChatActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(ChatActivity.this, "error", Toast.LENGTH_SHORT).show();
+
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> map = new HashMap<>();
+                    String key = "Key=AAAAdwpeKG0:APA91bGXvDy24ofwDlxH4nTqAoe_mDnXW9OeujYV_kuQkD1FLeWipsqROp4paYBJtxstXj7RyZWM59tLxaYPY_2ZcU9oMT9--v7o1sAsuXo2XRuCrEI_6Cy3gNN7VfbI-ivK48rjdrOK";
+                    map.put("Content-Type", "application/json");
+                    map.put("Authorization", key);
+
+                    return map;
+                }
+            };
+            queue.add(request);
+        }catch (Exception ex){
+
+        }
+    }
+    //send msg notification end
+
     //photo add
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -300,10 +437,27 @@ public class ChatActivity extends AppCompatActivity {
 
     }
     //photo add end
+
+    //status online offline
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.chat_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+    protected void onResume() {
+        super.onResume();
+        String currentId = FirebaseAuth.getInstance().getUid();
+        database.getReference().child("presence").child(currentId).setValue("Online");
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String currentId = FirebaseAuth.getInstance().getUid();
+        database.getReference().child("presence").child(currentId).setValue("Offline");
+    }
+    //status online offline end
+
+
+
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
 }

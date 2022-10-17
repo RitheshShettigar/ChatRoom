@@ -2,7 +2,7 @@ package com.example.loginpage.ModelClass;
 
 public class FriendHomemodel {
 
-    String username,imageuri,id;
+    String username,imageuri,id,token;
 
     public String getUsername() {
         return username;
@@ -14,5 +14,9 @@ public class FriendHomemodel {
 
     public String getId() {
         return id;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

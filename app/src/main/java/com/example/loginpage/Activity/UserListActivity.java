@@ -33,12 +33,16 @@ public class UserListActivity extends AppCompatActivity {
     ProgressBar progress;
     FirebaseAuth auth;
 
+    FirebaseDatabase database;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+
+        database=FirebaseDatabase.getInstance();
 
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
@@ -104,6 +108,22 @@ public class UserListActivity extends AppCompatActivity {
 
 
     }
+
+    //status online offline
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String currentId = FirebaseAuth.getInstance().getUid();
+        database.getReference().child("presence").child(currentId).setValue("Online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String currentId = FirebaseAuth.getInstance().getUid();
+        database.getReference().child("presence").child(currentId).setValue("Offline");
+    }
+    //status online offline end
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -5,69 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".Activity.ChatActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/back" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/avatar" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/username4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mian Asad Ali"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Online"
-                    android:visibility="gone"
-                    android:textColor="@color/white"
-                   />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
+    tools:context=".Activity.GroupChatActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -78,7 +16,7 @@
         android:layout_marginBottom="8dp"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sender"
+        app:layout_constraintEnd_toStartOf="@+id/Gsender"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
@@ -88,7 +26,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/msgtype"
+                android:id="@+id/GmessageBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -100,7 +38,7 @@
                 android:textSize="14sp" />
 
             <ImageView
-                android:id="@+id/attachment"
+                android:id="@+id/Gattachment"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="12dp"
@@ -108,7 +46,7 @@
                 app:tint="#676767" />
 
             <ImageView
-                android:id="@+id/camera"
+                android:id="@+id/Gcamera"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="12dp"
@@ -119,19 +57,17 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messageadapter1"
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/sender"
+        android:id="@+id/Gsender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -142,4 +78,5 @@
         app:layout_constraintTop_toTopOf="@+id/cardView"
         android:src="@drawable/ic_baseline_send_24"
         app:tint="@color/white" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

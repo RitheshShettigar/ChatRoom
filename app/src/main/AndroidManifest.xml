@@ -13,9 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginPage">
         <activity
+            android:name=".Activity.GroupChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ViewFriendActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.ViewFriendActivity"/>
+            android:parentActivityName=".Activity.ViewFriendActivity" />
         <activity
             android:name=".Activity.CallActivity"
             android:exported="false" />
@@ -33,13 +36,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activity.UserListActivity"
-            android:exported="false"
             android:label="User List" />
         <activity
             android:name=".Activity.ChatActivity"
             android:exported="false"
-            android:theme="@style/Theme.LoginPage.NoActionBar"
-            />
+            android:theme="@style/Theme.LoginPage.NoActionBar" />
         <activity
             android:name=".Activity.PasswordResetActivity"
             android:exported="false" />
@@ -67,6 +68,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".MyFirebaseService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
