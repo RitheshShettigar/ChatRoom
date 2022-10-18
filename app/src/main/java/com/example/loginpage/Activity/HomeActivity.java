@@ -8,21 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.loginpage.Adapter.FriendHomeAdapter;
-import com.example.loginpage.Adapter.MessageAdapter;
 import com.example.loginpage.Adapter.TopStatusAdapter;
-import com.example.loginpage.Adapter.UserAdapter;
 import com.example.loginpage.ModelClass.FriendHomemodel;
 import com.example.loginpage.ModelClass.Status;
 import com.example.loginpage.ModelClass.UserStatus;
@@ -38,7 +34,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
@@ -197,11 +192,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.status:
-                       Intent intent=new Intent();
-                       intent.setType("image/*");
-                       intent.setAction(Intent.ACTION_GET_CONTENT);
-                       startActivityForResult(intent,75);
+                    case R.id.post:
+                        startActivity(new Intent(getApplicationContext(), PostActivity.class));
+                     //  Intent intent=new Intent();
+                     //  intent.setType("image/*");
+                     //  intent.setAction(Intent.ACTION_GET_CONTENT);
+                     //  startActivityForResult(intent,75);
                         overridePendingTransition(0,0);
                         return true;
 
@@ -211,6 +207,11 @@ public class HomeActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.home:
+                        return true;
+
+                    case R.id.calls:
+                        startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;

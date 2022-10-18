@@ -18,13 +18,16 @@
         <activity
             android:name=".Activity.ViewFriendActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.ViewFriendActivity" />
+            android:parentActivityName=".Activity.ViewFriendActivity"
+            />
         <activity
             android:name=".Activity.CallActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.StatusActivity"
-            android:exported="false" />
+            android:name=".Activity.PostActivity"
+            android:exported="false"
+
+            />
         <activity
             android:name=".Activity.SplashScreeActivity"
             android:exported="false"

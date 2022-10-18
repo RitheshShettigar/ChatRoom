@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.loginpage.Adapter.UserAdapter;
@@ -51,11 +50,12 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.status:
-                        Intent intent=new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(intent,75);
+                    case R.id.post:
+                        startActivity(new Intent(getApplicationContext(), PostActivity.class));
+                     // Intent intent=new Intent();
+                     // intent.setType("image/*");
+                     // intent.setAction(Intent.ACTION_GET_CONTENT);
+                     // startActivityForResult(intent,75);
                         overridePendingTransition(0,0);
                         return true;
 
@@ -64,6 +64,11 @@ public class UserListActivity extends AppCompatActivity {
 
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.calls:
+                        startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

@@ -11,13 +11,13 @@
         android:icon="@drawable/user"
         android:title="User list" />
     <item
-        android:id="@+id/status"
-        android:icon="@drawable/ic_status"
-        android:title="Status" />
+        android:id="@+id/post"
+        android:icon="@drawable/postadd"
+        android:title="Add Post" />
     <item
         android:id="@+id/calls"
-        android:icon="@drawable/ic_call"
-        android:title="Calls" />
+        android:icon="@drawable/profileu"
+        android:title="Profile" />
 
 
 
