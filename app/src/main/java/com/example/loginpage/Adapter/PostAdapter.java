@@ -47,7 +47,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
 
 
-
     public PostAdapter(Context context, ArrayList<PostModel> postModelArrayList) {
         this.context=context;
         this.postModelArrayList=postModelArrayList;
@@ -66,17 +65,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         PostModel postModel=postModelArrayList.get(position);
 
+
+
 //        mUser=mAuth.getCurrentUser();
-        mAuth=FirebaseAuth.getInstance();
+       // mAuth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        mUser =mAuth.getInstance().getCurrentUser();
 
 
-        LikeRef= FirebaseDatabase.getInstance().getReference().child("Like");
+       //LikeRef= FirebaseDatabase.getInstance().getReference().child("Like");
 
 
-
-      //String postKey=getItemId(position).ge
+       // String postKey= postModel.getGetkey().getKey();
         String timeAgo=calculateTimeAgo(postModel.getDate());
         holder.time.setText(timeAgo);
         holder.name.setText(postModel.getUserName());
@@ -84,45 +85,59 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         Glide.with(context).load(postModelArrayList.get(position).getPostImage()).into(holder.post);
         Glide.with(context).load(postModelArrayList.get(position).getUserProfile()).into(holder.UserImage);
 
+      //islike(postModel.getPostid(),holder.like);
+      //nulike(holder.likeCount,postModel.getPostid());
+
      holder.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.like.setColorFilter(Color.BLUE);
-              // LikeRef.child(postKey).child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-              //     @Override
-              //     public void onDataChange(@NonNull DataSnapshot snapshot) {
-              //         if(snapshot.exists())
-              //         {
-              //             LikeRef.child(postKey).child(mUser.getUid()).removeValue();
-              //             holder.like.setColorFilter(Color.GRAY);
-              //             notifyDataSetChanged();
-              //         }else
-              //         {
-              //             LikeRef.child(postKey).child(mUser.getUid()).setValue("Like");
-              //             holder.like.setColorFilter(Color.BLUE);
-              //             notifyDataSetChanged();
-              //         }
 
-              //     }
+                // Toast.makeText(mcontext.getApplicationContext(), "clike",Toast.LENGTH_SHORT).show();
+              //  if (holder.like.getTag().equals("likes")){
+              //      FirebaseDatabase.getInstance().getReference("PostLike").child(postModel.getPostid()).child(mUser.getUid()).setValue(true);
 
-              //     @Override
-              //     public void onCancelled(@NonNull DatabaseError error) {
-              //         Toast.makeText(context, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+              //  }else {
+              //      FirebaseDatabase.getInstance().getReference("PostLike").child(postModel.getPostid()).removeValue();
+              //  }
 
-              //     }
-              // });
+
+                //holder.like.setColorFilter(Color.BLUE);
+          //LikeRef.child(postKey).child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+          //    @Override
+          //    public void onDataChange(@NonNull DataSnapshot snapshot) {
+          //        if(snapshot.exists())
+          //        {
+          //            LikeRef.child(postKey).child(mUser.getUid()).removeValue();
+          //            holder.like.setColorFilter(Color.GRAY);
+          //            notifyDataSetChanged();
+          //        }else
+          //        {
+          //            LikeRef.child(postKey).child(mUser.getUid()).setValue("Like");
+          //            holder.like.setColorFilter(Color.BLUE);
+          //            notifyDataSetChanged();
+          //        }
+
+          //    }
+
+
+          //    @Override
+          //    public void onCancelled(@NonNull DatabaseError error) {
+          //        Toast.makeText(context, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+
+          //    }
+          //});
 
             }
         });
 
-     holder.comment.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             holder.lin5.setVisibility(View.VISIBLE);
-         }
-     });
+   holder.comment.setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View view) {
+           holder.lin5.setVisibility(View.VISIBLE);
+       }
+   });
 
-    }
+  }
 
 
 
@@ -169,5 +184,43 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
             commentCount=itemView.findViewById(R.id.commentCount);
             lin5=itemView.findViewById(R.id.lin5);
         }
+    }
+    private  void  islike(String postid,ImageView imageView){
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("PostLike").child(postid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(firebaseUser.getUid()).exists()){
+                    imageView.setImageResource(R.drawable.like);
+                    imageView.setTag("like");
+
+                }else {
+                    imageView.setImageResource(R.drawable.like1);
+                    imageView.setTag("likes");
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void  nulike(final TextView likecount, String postid){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("PostLike").child(postid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               likecount .setText(snapshot.getChildrenCount()+"likes");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

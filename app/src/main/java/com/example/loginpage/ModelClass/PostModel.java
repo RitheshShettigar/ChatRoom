@@ -2,7 +2,7 @@ package com.example.loginpage.ModelClass;
 
 public class PostModel {
 
-    String date,postImage,postDesc,userProfile,userName;
+    String date,postImage,postDesc,userProfile,userName,postid;
 
     public PostModel() {
     }
@@ -45,6 +45,10 @@ public class PostModel {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPostid() {
+        return postid;
     }
 
     public PostModel(String date, String postImage, String postDesc, String userProfile, String userName) {

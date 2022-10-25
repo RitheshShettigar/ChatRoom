@@ -8,19 +8,27 @@
     android:layout_height="180dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9C9696"
         android:orientation="vertical">
 
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@drawable/logout1"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:text="Log Out"
+       />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Are you sure want\nLog Out?"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:textSize="15sp"
         android:textStyle="bold"/>
@@ -38,8 +46,9 @@
             android:layout_height="25sp"
             android:layout_weight="1"
             android:text="No"
+            android:textColor="@color/white"
             android:layout_margin="10sp"
-            android:background="#919191"
+            android:background="#503C3C"
             android:gravity="center"/>
 
 
@@ -49,6 +58,7 @@
             android:layout_height="25sp"
             android:layout_weight="1"
             android:text="YES"
+            android:textColor="@color/white"
             android:layout_margin="10sp"
             android:background="@color/purple_500"
             android:gravity="center"/>

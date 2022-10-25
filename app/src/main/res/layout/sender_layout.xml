@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_marginLeft="80dp"
     android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -12,15 +13,13 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="4dp"
         android:src="@drawable/person"
         app:civ_border_color="#7e47f5"
         app:civ_border_width="2dp" />
 
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/slinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/simage"
@@ -41,7 +40,7 @@
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
         android:text="TextView"
-        android:textSize="13sp"  />
+        android:textSize="13sp"/>
 
 
     <ImageView
@@ -51,9 +50,22 @@
         android:layout_margin="5dp"
         android:scaleType="centerCrop"
         android:visibility="gone"
-        app:srcCompat="@drawable/avatar" />
+        app:srcCompat="@drawable/avatar"/>
+
+        <TextView
+            android:id="@+id/seen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="seen"
+            android:visibility="gone"
+            android:layout_gravity="right"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
 
     </LinearLayout>
+
+
 
     <ImageView
         android:id="@+id/feeling"

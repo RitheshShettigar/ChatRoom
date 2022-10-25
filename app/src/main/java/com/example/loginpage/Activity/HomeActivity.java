@@ -45,6 +45,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import meow.bottomnavigation.MeowBottomNavigation;
+
 public class HomeActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
@@ -56,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerView statuslist;
     modelUser User;
     FirebaseDatabase database;
+
 
     private List<String>friendList1;
     FriendHomeAdapter friendHomeAdapter;
@@ -76,6 +79,8 @@ public class HomeActivity extends AppCompatActivity {
 
         statuslist=findViewById(R.id.statusList);
         database=FirebaseDatabase.getInstance();
+
+
 
         //notification code
         database=FirebaseDatabase.getInstance();
@@ -185,38 +190,40 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //Status end
+        //bottom navigation
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.home);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.post:
-                        startActivity(new Intent(getApplicationContext(), PostActivity.class));
-                     //  Intent intent=new Intent();
-                     //  intent.setType("image/*");
-                     //  intent.setAction(Intent.ACTION_GET_CONTENT);
-                     //  startActivityForResult(intent,75);
-                        overridePendingTransition(0,0);
-                        return true;
 
-                    case R.id.userlist:
-                        startActivity(new Intent(getApplicationContext(),UserListActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+       BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
+       bottomNavigationView.setSelectedItemId(R.id.home);
+       bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+           @Override
+           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+               switch (item.getItemId()) {
+                   case R.id.post:
+                       startActivity(new Intent(getApplicationContext(), PostActivity.class));
+                    //  Intent intent=new Intent();
+                    //  intent.setType("image/*");
+                    //  intent.setAction(Intent.ACTION_GET_CONTENT);
+                    //  startActivityForResult(intent,75);
+                       overridePendingTransition(0,0);
+                       return true;
 
-                    case R.id.home:
-                        return true;
+                   case R.id.userlist:
+                       startActivity(new Intent(getApplicationContext(),UserListActivity.class));
+                       overridePendingTransition(0,0);
+                       return true;
 
-                    case R.id.calls:
-                        startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
+                   case R.id.home:
+                       return true;
+
+                   case R.id.calls:
+                       startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
+                       overridePendingTransition(0,0);
+                       return true;
+               }
+               return false;
+           }
+       });
 
 
 
@@ -360,31 +367,6 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-
-               Dialog dialog=new Dialog(HomeActivity.this,R.style.Dialoge);
-                dialog.setContentView(R.layout.logoutdilog_layout);
-                TextView Yes,No;
-                Yes=dialog.findViewById(R.id.yes);
-                No=dialog.findViewById(R.id.no);
-
-                Yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
-                        startActivity(intent);
-
-                    }
-                });
-
-                No.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-
-                    }
-                });
-                dialog.show();
 
                 Toast.makeText(HomeActivity.this,"logout done",Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();

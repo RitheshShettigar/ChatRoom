@@ -4,15 +4,28 @@
     android:orientation="horizontal"
     android:padding="12dp"
     android:gravity="center_vertical"
-    android:background="@color/purple_200"
+    android:background="@color/purple_500"
     android:layout_height="wrap_content">
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="ClickSave"
-        android:layout_marginLeft="350dp"
-        android:src="@drawable/save"/>
-\
+        android:onClick="ClickMenu"
+        android:src="@drawable/menu"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="SMART LIBRARY"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="#131010"/>
+
+
+
+
+
 </LinearLayout>

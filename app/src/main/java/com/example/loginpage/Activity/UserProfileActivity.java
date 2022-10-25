@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.loginpage.ModelClass.modelRegister;
@@ -44,33 +46,89 @@ public class UserProfileActivity extends AppCompatActivity {
 
     CircleImageView setting_profile;
     EditText setting_name,setting_status;
+    TextView logout,personalDetails;
     FirebaseAuth Auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
     ImageView save,back;
     Uri setimageURI;
-    String email;
+    String email,name,image;
     ProgressDialog prog3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        setting_name=findViewById(R.id.setting_name);
+        setting_profile=findViewById(R.id.setting_profile);
+        save=findViewById(R.id.save);
+        back=findViewById(R.id.back);
+        logout=findViewById(R.id.logout1);
+        personalDetails=findViewById(R.id.personalDetails);
 
 
         Auth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
         storage=FirebaseStorage.getInstance();
 
-        setting_name=findViewById(R.id.setting_name);
-        setting_profile=findViewById(R.id.setting_profile);
-        save=findViewById(R.id.save);
-        back=findViewById(R.id.back);
+
 
         prog3=new ProgressDialog(this);
         prog3.setMessage("Please wait....");
         prog3.setCancelable(false);
+
+
+        personalDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserProfileActivity.this,PersonalDetails.class);
+
+                intent.putExtra("name",name);
+                intent.putExtra("image",image);
+                startActivity(intent);
+            }
+        });
+
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Dialog dialog=new Dialog(UserProfileActivity.this,R.style.Dialoge);
+                dialog.setContentView(R.layout.logoutdilog_layout);
+                TextView Yes,No;
+                Yes=dialog.findViewById(R.id.yes);
+                No=dialog.findViewById(R.id.no);
+
+                Yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(UserProfileActivity.this,LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        Toast.makeText(UserProfileActivity.this, "LogOut successful", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                No.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        Toast.makeText(UserProfileActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                dialog.show();
+
+            }
+        });
+
+
 
 
         DatabaseReference reference=database.getReference().child("User").child(Auth.getUid());
@@ -80,8 +138,8 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 email=snapshot.child("email").getValue().toString();
-                String name=snapshot.child("username").getValue().toString();
-                String image=snapshot.child("imageuri").getValue().toString();
+                 name=snapshot.child("username").getValue().toString();
+                 image=snapshot.child("imageuri").getValue().toString();
 
                 setting_name.setText(name);
                 Picasso.get().load(image).into(setting_profile);
@@ -94,6 +152,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,6 +273,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
     }
+
+
+    //logout
+
 
 
 

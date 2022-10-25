@@ -63,6 +63,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kotlin.text.UStringsKt;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -90,6 +91,8 @@ public class ChatActivity extends AppCompatActivity {
     Uri imageUri;
     FirebaseStorage storage;
     ProgressDialog prog4;
+
+
 
 
 
@@ -313,6 +316,8 @@ public class ChatActivity extends AppCompatActivity {
         //attachment go to gallery end
 
     }
+
+
 
     //send msg notification
     void sendNotification(String name,String message,String token){

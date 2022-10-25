@@ -158,6 +158,7 @@ public class ViewFriendActivity extends AppCompatActivity {
                     btnRequest.setText("Send SMS");
                     btnDecline.setText("UnFriend");
                     btnDecline.setVisibility(View.VISIBLE);
+
                 }
             }
 
@@ -175,6 +176,7 @@ public class ViewFriendActivity extends AppCompatActivity {
                     btnRequest.setText("Send SMS");
                     btnDecline.setText("UnFriend");
                     btnDecline.setVisibility(View.VISIBLE);
+
                 }
 
             }
@@ -292,8 +294,8 @@ public class ViewFriendActivity extends AppCompatActivity {
                     {
                         final HashMap hashMap=new HashMap();
                         hashMap.put("status","friend");
-                       // hashMap.put("username",RName);
-                      //  hashMap.put("profileImageUrl",RImage);
+                        hashMap.put("username",RName);
+                        hashMap.put("profileImageUrl",RImage);
                         friendRef.child(mUser.getUid()).child(RUid).updateChildren(hashMap).addOnCompleteListener((task1) -> {
                            // @Override
                          //   public void onComplete(@NonNull Task task) {
@@ -323,6 +325,7 @@ public class ViewFriendActivity extends AppCompatActivity {
 
             Intent intent=new Intent(ViewFriendActivity.this,ChatActivity.class);
             intent.putExtra("OtherUserId",RUid);
+            startActivity(intent);
         }
 
     }
