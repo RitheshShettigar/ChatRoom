@@ -66,17 +66,12 @@
     </LinearLayout>
 
 
-
     <ImageView
         android:id="@+id/feeling"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_toLeftOf="@+id/linearLayout"
+        android:layout_toLeftOf="@+id/slinearLayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:srcCompat="@drawable/ic_fb_love" />
 
 

@@ -62,7 +62,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public MessageAdapter(Context context, ArrayList<MessageModel> messageModelArrayList,String senderRoom,String receiverRoom) {
         this.context = context;
         this.messageModelArrayList = messageModelArrayList;
-        this.senderRoom=senderRoom;
+     this.senderRoom=senderRoom;
         this.receiverRoom=receiverRoom;
     }
 
@@ -124,18 +124,18 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
 
 
-          // FirebaseDatabase.getInstance().getReference()
-          //         .child("chats")
-          //         .child(senderRoom)
-          //         .child("messages")
-          //         .child(messageModel.getMessageId()).setValue(messageModel);
+           FirebaseDatabase.getInstance().getReference()
+                   .child("chats")
+                   .child(senderRoom)
+                   .child("messages")
+                   .child(messageModel.getMessageId()).setValue(messageModel);
 
 
-          // FirebaseDatabase.getInstance().getReference()
-          //          .child("chats")
-          //          .child(receiverRoom)
-          //          .child("messages")
-          //          .child(messageModel.getMessageId()).setValue(messageModel);
+           FirebaseDatabase.getInstance().getReference()
+                    .child("chats")
+                    .child(receiverRoom)
+                    .child("messages")
+                    .child(messageModel.getMessageId()).setValue(messageModel);
             return true; // true is closing popup, false is requesting a new selection
         });
         //end reaction
@@ -145,33 +145,44 @@ public class MessageAdapter extends RecyclerView.Adapter {
         {
             SenderViewHolder viewHolder=(SenderViewHolder)holder;
 
+            //send image
+            if(messageModel.getMessage().equals("Photo")){
+                viewHolder.ssimage.setVisibility(View.VISIBLE);
+                viewHolder.stxtmessage.setVisibility(View.GONE);
+                Picasso.get().load(messageModel.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.ssimage);
 
 
 
-            //delete msg
-          /*  viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            }
+            //send image end
+
+            viewHolder.stxtmessage.setText(messageModel.getMessage());
+            Picasso.get().load(simage).into(viewHolder.scircleImageView);
+
+//delete msg
+            viewHolder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
-                    Dialog dialog=new Dialog(context,R.style.Dialoge1);
-                    dialog.setContentView(R.layout.delete_dialog);
-                  //   View view = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
-                  //  Dialog dialog1 = Dialog.binding(view);
-                   //AlertDialog dialog1 = new AlertDialog.Builder(context)
-                   //        .setTitle("Delete Message")
-                   //        .setView(dialog1.get())
-                   //         .create();
-
-                    //   if(remoteConfig.getBoolean("isEveryoneDeletionEnabled")) {
-                    //       viewHolder.everyone.setVisibility(View.VISIBLE);
-                    //   } else {
-                    //       viewHolder.everyone.setVisibility(View.GONE);
-                    //   }
-
-                    viewHolder.everyone.setOnClickListener(new View.OnClickListener() {
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                    builder.setTitle("Delete");
+                    builder.setMessage("Are you ti delete msg");
+                    builder.setPositiveButton("Delete for me", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            FirebaseDatabase.getInstance().getReference()
+                                    .child("chats")
+                                    .child(senderRoom)
+                                    .child("messages")
+                                    .child(messageModel.getMessageId()).setValue(null);
+                            dialogInterface.dismiss();
+                        }
+                    });
+
+                    builder.setNeutralButton("Delete for everyone", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
                             messageModel.setMessage("This message is removed.");
-                            // message.setFeeling(-1);
+                           // messageModel.setFeeling(-1);
                             FirebaseDatabase.getInstance().getReference()
                                     .child("chats")
                                     .child(senderRoom)
@@ -183,100 +194,23 @@ public class MessageAdapter extends RecyclerView.Adapter {
                                     .child(receiverRoom)
                                     .child("messages")
                                     .child(messageModel.getMessageId()).setValue(messageModel);
-                            dialog.dismiss();
-                        }
-                    });
-
-                    viewHolder.delete.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            FirebaseDatabase.getInstance().getReference()
-                                    .child("chats")
-                                    .child(senderRoom)
-                                    .child("messages")
-                                    .child(messageModel.getMessageId()).setValue(null);
-                            dialog.dismiss();
-                        }
-                    });
-                    viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    dialog.show();
-
-                    return false;
-                }
-            });*/
-
-            //delete msg end
-
-
-            //send image
-            if(messageModel.getMessage().equals("Photo")){
-                viewHolder.ssimage.setVisibility(View.VISIBLE);
-                viewHolder.stxtmessage.setVisibility(View.GONE);
-                Picasso.get().load(messageModel.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.ssimage);
-
-
-           /*  viewHolder.ssimage.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        popup.onTouch(view,motionEvent);
-                        // Toast.makeText(context,messageModel.getMessageId(), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });*/
-
-            }
-            //send image end
-
-            viewHolder.stxtmessage.setText(messageModel.getMessage());
-            Picasso.get().load(simage).into(viewHolder.scircleImageView);
-
-            viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder builder=new AlertDialog.Builder(context);
-                    builder.setTitle("Delete");
-                    builder.setMessage("Are you ti delete msg");
-                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                            FirebaseDatabase.getInstance().getReference()
-                                    .child("chats")
-
-
-
-                                    .removeValue();
-                            Toast.makeText(context, senderRoom, Toast.LENGTH_SHORT).show();
-                                  // .child("messages").
-                                  // child(messageModel.getMessageId()).setValue(messageModel);
-
-
-
-                           // FirebaseDatabase.getInstance().getReference()
-                           //         .child("chats")
-                           //         .child(receiverRoom)
-                           //         .child("messages")
-                           //         .child(messageModel.getMessageId()).setValue(messageModel);
-                           // dialogInterface.dismiss();
+                            dialogInterface.dismiss();
 
                         }
                     });
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
                         }
                     });
                     builder.show();
+                    return false;
                 }
 
             });
+
+            //delete msg
 
             //time
 
@@ -320,17 +254,32 @@ public class MessageAdapter extends RecyclerView.Adapter {
             viewHolder.felling.setVisibility(View.GONE);
         }
 
-          /*  viewHolder.stxtmessage.setOnTouchListener(new View.OnTouchListener() {
+
+            viewHolder.scircleImageView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     popup.onTouch(view,motionEvent);
                   // Toast.makeText(context,messageModel.getMessageId(), Toast.LENGTH_SHORT).show();
                     return false;
                 }
-            });*/
+            });
             //end reaction
 
-        }else{
+        }
+        else
+
+
+
+
+
+
+
+
+
+
+
+
+        {
 
             ReciverViewHolder viewHolder=(ReciverViewHolder) holder;
             //send image
@@ -340,14 +289,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 Picasso.get().load(messageModel.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.rrimage);
 
 
-             /*  viewHolder.rrimage.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        popup.onTouch(view,motionEvent);
-                        // Toast.makeText(context,messageModel.getMessageId(), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });*/
 
             }
             //send image end
@@ -358,67 +299,32 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
 
             //delete msg
-            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            viewHolder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
-                    Dialog dialog=new Dialog(context,R.style.Dialoge1);
-                    dialog.setContentView(R.layout.delete_dialog);
-
-                   // View view = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
-                    //Dialog dialog = .bind(view);
-                   // AlertDialog dialog = new AlertDialog.Builder(context)
-                   //         .setTitle("Delete Message")
-                   //        // .setView(binding.())
-                   //         .create();
-                //   if(remoteConfig.getBoolean("isEveryoneDeletionEnabled")) {
-                //       viewHolder.everyone.setVisibility(View.VISIBLE);
-                //   } else {
-                //       viewHolder.everyone.setVisibility(View.GONE);
-                //   }
-
-                 //   viewHolder.everyone.setOnClickListener(new View.OnClickListener() {
-                 //       @Override
-                 //       public void onClick(View v) {
-                 //           messageModel.setMessage("This message is removed.");
-                 //          // message.setFeeling(-1);
-                 //           FirebaseDatabase.getInstance().getReference()
-                 //                   .child("chats")
-                 //                   .child(senderRoom)
-                 //                   .child("messages")
-                 //                   .child(messageModel.getMessageId()).setValue(messageModel);
-//
-                 //           FirebaseDatabase.getInstance().getReference()
-                 //                   .child("chats")
-                 //                   .child(receiverRoom)
-                 //                   .child("messages")
-                 //                   .child(messageModel.getMessageId()).setValue(messageModel);
-                 //           dialog.dismiss();
-                 //       }
-                 //   });
-//
-                 //   viewHolder.delete.setOnClickListener(new View.OnClickListener() {
-                 //       @Override
-                 //       public void onClick(View v) {
-                 //           FirebaseDatabase.getInstance().getReference()
-                 //                   .child("chats")
-                 //                   .child(senderRoom)
-                 //                   .child("messages")
-                 //                   .child(messageModel.getMessageId()).setValue(null);
-                 //           dialog.dismiss();
-                 //       }
-                 //   });
-                  viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View view) {
-                           dialog.dismiss();
-                       }
-                   });
-
-                    dialog.show();
-
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Delete");
+                    builder.setMessage("Are you sure delete message");
+                    builder.setPositiveButton("Delete For Me", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            FirebaseDatabase.getInstance().getReference()
+                                    .child("chats")
+                                    .child(senderRoom)
+                                    .child("messages")
+                                    .child(messageModel.getMessageId()).setValue(null);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
                     return false;
                 }
-
 
             });
 
@@ -438,7 +344,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
 
 
-           /* viewHolder.rtxtmessage.setOnTouchListener(new View.OnTouchListener() {
+            viewHolder.rcircleImageView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     popup.onTouch(view,motionEvent);
@@ -446,7 +352,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     return false;
 
                 }
-            });*/
+            });
             //end reaction
 
         }
@@ -483,9 +389,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
             stime=itemView.findViewById(R.id.time);
             ssimage=itemView.findViewById(R.id.ssimage);
             seen=itemView.findViewById(R.id.seen);
-        //  delete=itemView.findViewById(R.id.delete);
-        //  everyone=itemView.findViewById(R.id.everyone);
-        //  cancel=itemView.findViewById(R.id.cancel);
             linearLayout=itemView.findViewById(R.id.slinearLayout);
 
 
@@ -494,9 +397,10 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     class ReciverViewHolder extends RecyclerView.ViewHolder{
         CircleImageView rcircleImageView;
-        TextView rtxtmessage,rtime,seen,delete,everyone;
+        TextView rtxtmessage,rtime,seen;
         ImageView felling,rrimage;
-        Button cancel;
+        LinearLayout linearLayout;
+
 
 
         public ReciverViewHolder(@NonNull View itemView) {
@@ -507,9 +411,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
             rtime=itemView.findViewById(R.id.time);
             rrimage=itemView.findViewById(R.id.rrimage);
             seen=itemView.findViewById(R.id.seen);
-            delete=itemView.findViewById(R.id.delete);
-            everyone=itemView.findViewById(R.id.everyone);
-            cancel=itemView.findViewById(R.id.cancel);
+            linearLayout=itemView.findViewById(R.id.rlinearLayout);
+
 
 
         }

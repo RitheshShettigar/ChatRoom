@@ -100,7 +100,7 @@ public class FriendHomeAdapter  extends RecyclerView.Adapter<FriendHomeAdapter.V
                 intent.putExtra("token", friendHomemodel.getToken());
 
                 context.startActivity(intent);
-                Toast.makeText(context, friendHomemodel.getUsername(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, friendHomemodel.getUsername(), Toast.LENGTH_SHORT).show();
 
             }
         });

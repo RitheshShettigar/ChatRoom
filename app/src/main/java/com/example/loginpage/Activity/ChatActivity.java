@@ -67,7 +67,7 @@ import kotlin.text.UStringsKt;
 
 public class ChatActivity extends AppCompatActivity {
 
-    String ReciverImage,ReciverUid,ReciverName,SenderUid;
+    String ReciverImage,ReciverUid,ReciverName,SenderUid,sendername;
     CircleImageView Image;
     TextView Name,status;
     ImageView attachment,camera,imageView2;
@@ -133,13 +133,6 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-       recyclerView=findViewById(R.id.messageadapter1);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        messageModelArrayList= new ArrayList<>();
-        adapter=new MessageAdapter(this,messageModelArrayList,senderRoom,reciverRoom);
-        recyclerView.setAdapter(adapter);
-
 
 
         Intent intent=getIntent();
@@ -163,6 +156,15 @@ public class ChatActivity extends AppCompatActivity {
         reciverRoom=ReciverUid+SenderUid;
 
 
+        recyclerView=findViewById(R.id.messageadapter1);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        messageModelArrayList= new ArrayList<>();
+        adapter=new MessageAdapter(this,messageModelArrayList,senderRoom,reciverRoom);
+        recyclerView.setAdapter(adapter);
+
+
+
         DatabaseReference reference=database.getReference().child("User").child(auth.getUid());
         DatabaseReference chatreference=database.getReference().child("chats").child(senderRoom).child("messages");
 
@@ -176,6 +178,7 @@ public class ChatActivity extends AppCompatActivity {
                     if(!Status.isEmpty()){
                         if(Status.equals("offline")){
                             status.setVisibility(View.GONE);
+                           // Toast.makeText(ChatActivity.this, Status, Toast.LENGTH_SHORT).show();
                         }else {
                             status.setText(Status);
                             status.setVisibility(View.VISIBLE);
@@ -246,6 +249,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
               simage= snapshot.child("imageuri").getValue().toString();
+                sendername=snapshot.child("username").getValue().toString();
               rimage=ReciverImage;
             }
 
@@ -328,7 +332,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
             JSONObject data = new JSONObject();
-            data.put("title", name);
+            data.put("title",sendername);
             data.put("body", message);
             JSONObject notificationData = new JSONObject();
             notificationData.put("notification", data);
