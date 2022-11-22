@@ -5,12 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +22,6 @@ import com.example.loginpage.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +45,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     CircleImageView setting_profile;
     EditText setting_name,setting_status;
-    TextView logout,personalDetails;
+    TextView logout,personalDetails,passwordreset,reels;
     FirebaseAuth Auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
@@ -56,6 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
     ProgressDialog prog3;
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +64,11 @@ public class UserProfileActivity extends AppCompatActivity {
         setting_name=findViewById(R.id.setting_name);
         setting_profile=findViewById(R.id.setting_profile);
         save=findViewById(R.id.save);
+        reels=findViewById(R.id.reels);
         back=findViewById(R.id.back);
         logout=findViewById(R.id.logout1);
         personalDetails=findViewById(R.id.personalDetails);
+        passwordreset=findViewById(R.id.passwordreset);
 
 
         Auth=FirebaseAuth.getInstance();
@@ -78,6 +80,27 @@ public class UserProfileActivity extends AppCompatActivity {
         prog3=new ProgressDialog(this);
         prog3.setMessage("Please wait....");
         prog3.setCancelable(false);
+
+
+        passwordreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserProfileActivity.this,PasswordResetActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+        reels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserProfileActivity.this, ReelsAddActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
 
 
         personalDetails.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +156,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
         DatabaseReference reference=database.getReference().child("User").child(Auth.getUid());
         StorageReference storageReference=storage.getReference().child("upload").child(Auth.getUid());
+
+
+
+
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -291,4 +318,21 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
     //photo add end
+
+    //status online offline
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String currentId = FirebaseAuth.getInstance().getUid();
+        database.getReference().child("presence").child(currentId).setValue("Online");
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String currentId = FirebaseAuth.getInstance().getUid();
+        database.getReference().child("presence").child(currentId).setValue("Offline");
+    }
+    //status online offline end
+
+
 }

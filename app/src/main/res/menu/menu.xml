@@ -10,6 +10,12 @@
         android:id="@+id/userlist"
         android:icon="@drawable/user"
         android:title="User list" />
+
+    <item
+        android:id="@+id/realse"
+        android:icon="@drawable/realse"
+        android:title="Reels" />
+
     <item
         android:id="@+id/post"
         android:icon="@drawable/postadd"

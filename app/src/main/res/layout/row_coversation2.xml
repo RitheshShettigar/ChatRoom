@@ -12,6 +12,13 @@
     android:paddingRight="10dp"
     android:background="@drawable/shape_item">
 
+    <LinearLayout
+        android:id="@+id/lin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/fprofile"
         android:layout_width="48dp"
@@ -20,7 +27,30 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/online_on"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"
+       android:background="@color/purple_500"
+        />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/online_off"
+            android:visibility="gone"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            tools:ignore="MissingConstraints"
+            android:background="@color/ic_launcher_background"
+            />
+
+    </LinearLayout>
+
+
     <TextView
+
         android:id="@+id/fusername1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,8 +59,8 @@
         android:textColor="@color/black"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/fprofile"
-        app:layout_constraintTop_toTopOf="@+id/fprofile" />
+        app:layout_constraintStart_toEndOf="@+id/lin"
+        app:layout_constraintTop_toTopOf="@+id/lin" />
 
     <TextView
         android:id="@+id/lastMsg"
@@ -61,6 +91,6 @@
         android:background="#E4E4E4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/lin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

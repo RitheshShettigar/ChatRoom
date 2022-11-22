@@ -71,6 +71,11 @@ public class UserListActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
                         overridePendingTransition(0,0);
                         return true;
+
+                    case R.id.realse:
+                        startActivity(new Intent(getApplicationContext(),ReelsActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }

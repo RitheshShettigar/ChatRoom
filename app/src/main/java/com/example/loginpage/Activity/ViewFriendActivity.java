@@ -36,6 +36,7 @@ public class ViewFriendActivity extends AppCompatActivity {
     TextView friend_name;
     Button btnRequest,btnDecline;
     String CurrentState="nothing_happen";
+    FirebaseDatabase database;
 
 
 
@@ -356,5 +357,6 @@ public class ViewFriendActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

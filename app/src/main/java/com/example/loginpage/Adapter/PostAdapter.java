@@ -63,7 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-        PostModel postModel=postModelArrayList.get(position);
+     PostModel postModel=postModelArrayList.get(position);
 
 
 
@@ -75,7 +75,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
 
        //LikeRef= FirebaseDatabase.getInstance().getReference().child("Like");
-
+     //
+        //   String postkey=getRef(position).getKey();
 
        // String postKey= postModel.getGetkey().getKey();
         String timeAgo=calculateTimeAgo(postModel.getDate());

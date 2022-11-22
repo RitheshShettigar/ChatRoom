@@ -12,11 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -84,6 +80,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+           android:layout_alignParentBottom="true"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -95,8 +92,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="Type a message..."
-                android:inputType="textPersonName"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:textSize="14sp" />
 
             <ImageView
@@ -130,16 +126,21 @@
 
 
 
+
+
     <ImageView
         android:id="@+id/sender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:background="@color/purple_500"
+        android:backgroundTint="@color/purple_700"
+        android:background="@drawable/shape_item"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView"
         android:src="@drawable/ic_baseline_send_24"
         app:tint="@color/white" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -220,6 +220,11 @@ public class HomeActivity extends AppCompatActivity {
                        startActivity(new Intent(getApplicationContext(),UserProfileActivity.class));
                        overridePendingTransition(0,0);
                        return true;
+
+                   case R.id.realse:
+                       startActivity(new Intent(getApplicationContext(),ReelsActivity.class));
+                       overridePendingTransition(0,0);
+                       return true;
                }
                return false;
            }
@@ -239,6 +244,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
         String currentId = FirebaseAuth.getInstance().getUid();
         database.getReference().child("presence").child(currentId).setValue("Online");
+
+
     }
 
      @Override

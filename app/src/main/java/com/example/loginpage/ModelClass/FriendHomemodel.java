@@ -19,4 +19,7 @@ public class FriendHomemodel {
     public String getToken() {
         return token;
     }
+
+
+
 }

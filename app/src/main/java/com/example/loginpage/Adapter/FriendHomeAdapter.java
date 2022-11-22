@@ -34,6 +34,8 @@ public class FriendHomeAdapter  extends RecyclerView.Adapter<FriendHomeAdapter.V
     ArrayList<FriendHomemodel>listf;
 
 
+
+
     public FriendHomeAdapter(Context context, ArrayList<FriendHomemodel>friendHomemodelArrayList) {
         this.context=context;
         this.listf=friendHomemodelArrayList;
@@ -106,6 +108,22 @@ public class FriendHomeAdapter  extends RecyclerView.Adapter<FriendHomeAdapter.V
         });
 
 
+    /*  if (ischat){
+            holder.online_on.setVisibility(View.GONE);
+            holder.online_off.setVisibility(View.GONE);
+        }else {
+            if (friendHomemodel.getStatus().equals("Online")){
+                holder.online_on.setVisibility(View.VISIBLE);
+                holder.online_off.setVisibility(View.GONE);
+               // online=true;
+            }else {
+                holder.online_on.setVisibility(View.GONE);
+                holder.online_off.setVisibility(View.VISIBLE);
+               // online=false;
+            }
+        }*/
+
+
     }
 
 
@@ -115,7 +133,7 @@ public class FriendHomeAdapter  extends RecyclerView.Adapter<FriendHomeAdapter.V
         return listf.size();
     }
     class Viewholder extends RecyclerView.ViewHolder{
-        CircleImageView Image;
+        CircleImageView Image,online_on,online_off;
         TextView Username,lastMsg,msgTime;
 
 
@@ -125,6 +143,8 @@ public class FriendHomeAdapter  extends RecyclerView.Adapter<FriendHomeAdapter.V
             Username=itemView.findViewById(R.id.fusername1);
             lastMsg=itemView.findViewById(R.id.lastMsg);
             msgTime=itemView.findViewById(R.id.msgTime);
+            online_on=itemView.findViewById(R.id.online_on);
+            online_off=itemView.findViewById(R.id.online_off);
 
 
 

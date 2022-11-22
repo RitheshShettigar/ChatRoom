@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -38,6 +41,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -75,9 +79,13 @@ public class ChatActivity extends AppCompatActivity {
     EditText msgtype1;
    // Toolbar toolbar;
     FirebaseDatabase database;
+    DatabaseReference reference;
     FirebaseAuth auth;
+    FirebaseUser mUser;
     public static String simage;
     public static String rimage;
+    private  static final int PERMISSION_CODE=22;
+    ValueEventListener seenListener;
 
 
     String senderRoom,reciverRoom;
@@ -123,6 +131,20 @@ public class ChatActivity extends AppCompatActivity {
         status=findViewById(R.id.status);
 
 
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent();
+              //  intent.setType("image/*");
+                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+              //  startActivityForResult(intent,100);
+
+            }
+        });
+
+
 
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,11 +179,15 @@ public class ChatActivity extends AppCompatActivity {
 
 
         recyclerView=findViewById(R.id.messageadapter1);
-        recyclerView.setHasFixedSize(true);
+
+       // recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         messageModelArrayList= new ArrayList<>();
         adapter=new MessageAdapter(this,messageModelArrayList,senderRoom,reciverRoom);
         recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+
 
 
 
@@ -319,7 +345,38 @@ public class ChatActivity extends AppCompatActivity {
         });
         //attachment go to gallery end
 
+       // SeenMessage(SenderUid);
+
     }
+
+
+    //message seen
+  /*  private  void  SeenMessage(final String SenderUi){
+        DatabaseReference reference=database.getReference().child("User");
+        seenListener=reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1:snapshot.getChildren()){
+                    MessageModel messageModel = snapshot1.getValue(MessageModel.class);
+                    if(messageModel.getId().equals(auth.getUid())&& messageModel.getSenderId().equals(SenderUid)){
+                        HashMap<String,Object> hashMap = new HashMap<>();
+                        hashMap.put("isseen",true);
+                        snapshot1.getRef().updateChildren(hashMap);
+                        //adapter=new MessageAdapter(ChatActivity.this,messageModel.getSenderId(),messageModel.getId());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }*/
+
+    //message seen end
 
 
 
@@ -458,6 +515,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         String currentId = FirebaseAuth.getInstance().getUid();
+       // reference.removeEventListener(seenListener);
         database.getReference().child("presence").child(currentId).setValue("Offline");
     }
     //status online offline end
@@ -468,5 +526,11 @@ public class ChatActivity extends AppCompatActivity {
         finish();
         return super.onSupportNavigateUp();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.topmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
 }

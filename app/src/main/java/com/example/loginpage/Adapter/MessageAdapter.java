@@ -56,9 +56,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
     String senderRoom;
     String receiverRoom;
 
-    //FirebaseRemoteConfig remoteConfig;
-    DatabaseReference reference;
-
     public MessageAdapter(Context context, ArrayList<MessageModel> messageModelArrayList,String senderRoom,String receiverRoom) {
         this.context = context;
         this.messageModelArrayList = messageModelArrayList;
@@ -150,9 +147,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 viewHolder.ssimage.setVisibility(View.VISIBLE);
                 viewHolder.stxtmessage.setVisibility(View.GONE);
                 Picasso.get().load(messageModel.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.ssimage);
-
-
-
             }
             //send image end
 
@@ -165,8 +159,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 public boolean onLongClick(View view) {
                     AlertDialog.Builder builder=new AlertDialog.Builder(context);
                     builder.setTitle("Delete");
-                    builder.setMessage("Are you ti delete msg");
-                    builder.setPositiveButton("Delete for me", new DialogInterface.OnClickListener() {
+                    builder.setMessage("Are you sure delete message");
+                    builder.setPositiveButton("Delete for Me", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             FirebaseDatabase.getInstance().getReference()
@@ -181,7 +175,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     builder.setNeutralButton("Delete for everyone", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            messageModel.setMessage("This message is removed.");
+                            messageModel.setMessage("This message is removed");
                            // messageModel.setFeeling(-1);
                             FirebaseDatabase.getInstance().getReference()
                                     .child("chats")
@@ -212,27 +206,27 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
             //delete msg
 
-            //time
 
-           /* String senderId=FirebaseAuth.getInstance().getUid();
-            String senderRoom=senderId+messageModel.getId() ;
-            FirebaseDatabase.getInstance().getReference()
+            //time
+           /* FirebaseDatabase.getInstance().getReference()
                     .child("chats")
                     .child(senderRoom)
-                  .child("messages")
+                    .child("messages")
+                  //`  .child(receiverRoom)
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()) {
                                // String lastMsg = snapshot.child("lastMsg").getValue(String.class);
-                                long time = snapshot.child("timestamp").getValue(Long.class);
+                                String time = snapshot.child("timestamp").getValue(String.class);
 
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-                                ( (SenderViewHolder)holder).stime.setText(dateFormat.format(new Date(time)));
+                              //  SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+                                viewHolder.date.messageModel.getTimestamp());
+                                Toast.makeText(context, "ggg", Toast.LENGTH_SHORT).show();
 
                             }
                             else {
-                                ((SenderViewHolder) holder).stime.setText("00:00");
+                                viewHolder.date.setText("00:00");
 
                             }
                         }
@@ -265,6 +259,19 @@ public class MessageAdapter extends RecyclerView.Adapter {
             });
             //end reaction
 
+
+            if (position == messageModelArrayList.size()-1){
+                if (messageModel.isIsseen()) {
+                    viewHolder.seen.setText("Seen");
+
+                }else {
+                    viewHolder.seen.setText("Delivered");
+                   // viewHolder.seen.setTextColor(R.color.red);
+                }
+            }else {
+                viewHolder.seen.setVisibility(View.GONE);
+            }
+
         }
         else
 
@@ -287,8 +294,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 viewHolder.rrimage.setVisibility(View.VISIBLE);
                 viewHolder.rtxtmessage.setVisibility(View.GONE);
                 Picasso.get().load(messageModel.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.rrimage);
-
-
 
             }
             //send image end
@@ -377,7 +382,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     class SenderViewHolder extends RecyclerView.ViewHolder{
         CircleImageView scircleImageView;
-        TextView stxtmessage,stime,seen;
+        TextView stxtmessage,seen,date;
         ImageView felling,ssimage;
         LinearLayout linearLayout;
 
@@ -386,7 +391,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
             scircleImageView=itemView.findViewById(R.id.simage);
             stxtmessage=itemView.findViewById(R.id.stxtMessage);
             felling=itemView.findViewById(R.id.feeling);
-            stime=itemView.findViewById(R.id.time);
+            date=itemView.findViewById(R.id.date);
             ssimage=itemView.findViewById(R.id.ssimage);
             seen=itemView.findViewById(R.id.seen);
             linearLayout=itemView.findViewById(R.id.slinearLayout);

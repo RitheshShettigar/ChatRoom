@@ -7,14 +7,21 @@ public class MessageModel {
     String senderId,messageId;
   private  long timestamp;
    private long felling=-1;
+    private boolean isseen=false;
 
-    public MessageModel() {
-    }
+
+
+
 
     public MessageModel(String message, String senderId, long timestamp) {
         this.message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
+        this.isseen = isseen;
+
+    }
+
+    public MessageModel() {
     }
 
     public String getMessage() {
@@ -72,4 +79,11 @@ public class MessageModel {
         this.imageUrl = imageUrl;
     }
 
+    public boolean isIsseen() {
+        return isseen;
+    }
+
+    public void setIsseen(boolean isseen) {
+        this.isseen= isseen;
+    }
 }

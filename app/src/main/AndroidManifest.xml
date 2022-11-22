@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,10 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginPage">
         <activity
+            android:name=".Activity.ReelsAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ReelsActivity"
+            android:exported="false"
+            android:label="Reels" />
+        <activity
             android:name=".Activity.PersonalDetails"
             android:exported="false"
             android:label="Personal Details"
-            android:parentActivityName=".Activity.PersonalDetails"/>
+            android:parentActivityName=".Activity.PersonalDetails" />
         <activity
             android:name=".Activity.GroupChatActivity"
             android:exported="false" />
@@ -48,11 +57,13 @@
             android:theme="@style/Theme.LoginPage.NoActionBar" />
         <activity
             android:name=".Activity.PasswordResetActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Activity.PasswordResetActivity" />
         <activity
             android:name=".Activity.RegisterActivity"
             android:exported="false"
-            android:label="Register" />
+            android:label="Register"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false"
@@ -66,7 +77,8 @@
             android:exported="false" />
         <activity
             android:name=".Activity.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
