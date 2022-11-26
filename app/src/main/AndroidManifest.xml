@@ -15,8 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginPage">
         <activity
+            android:name=".Activity.UserProfile"
+            android:exported="false"
+            android:label="Profile"
+            android:parentActivityName=".Activity.UserProfile" />
+        <activity
+            android:name=".Activity.PostDonloadActivity"
+            android:exported="false"
+            android:label="Post"
+            android:parentActivityName=".Activity.PostDonloadActivity" />
+        <activity
             android:name=".Activity.ReelsAddActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Add Reels"
+            android:parentActivityName=".Activity.ReelsAddActivity" />
         <activity
             android:name=".Activity.ReelsActivity"
             android:exported="false"
@@ -54,7 +66,8 @@
         <activity
             android:name=".Activity.ChatActivity"
             android:exported="false"
-            android:theme="@style/Theme.LoginPage.NoActionBar" />
+            android:theme="@style/Theme.LoginPage.NoActionBar"
+            android:parentActivityName=".Activity.ChatActivity"/>
         <activity
             android:name=".Activity.PasswordResetActivity"
             android:exported="false"

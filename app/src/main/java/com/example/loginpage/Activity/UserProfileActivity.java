@@ -39,12 +39,14 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfileActivity extends AppCompatActivity {
 
     CircleImageView setting_profile;
-    EditText setting_name,setting_status;
+    EditText setting_name,status;
     TextView logout,personalDetails,passwordreset,reels;
     FirebaseAuth Auth;
     FirebaseDatabase database;
@@ -53,6 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
     Uri setimageURI;
     String email,name,image;
     ProgressDialog prog3;
+    DatabaseReference mDatabase;
 
 
     @SuppressLint("ResourceAsColor")
@@ -69,6 +72,7 @@ public class UserProfileActivity extends AppCompatActivity {
         logout=findViewById(R.id.logout1);
         personalDetails=findViewById(R.id.personalDetails);
         passwordreset=findViewById(R.id.passwordreset);
+        status=findViewById(R.id.status);
 
 
         Auth=FirebaseAuth.getInstance();
@@ -228,6 +232,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                  if(setimageURI!=null)
                  {
+                     prog3.show();
                      storageReference.putFile(setimageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                          @Override
                          public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -243,7 +248,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                              if(task.isSuccessful())
                                              {
 
-                                                 prog3.show();
+                                                 prog3.dismiss();
                                                  Toast.makeText(UserProfileActivity.this," Update Successfully ", Toast.LENGTH_SHORT).show();
                                                //  Intent intent=new Intent(UserProfileActivity.this,HomeActivity.class);
                                                 // startActivity(intent);
@@ -262,6 +267,7 @@ public class UserProfileActivity extends AppCompatActivity {
                      });
                  }
                  else {
+                     prog3.show();
                      storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                          @Override
                          public void onSuccess(Uri uri) {
@@ -273,10 +279,10 @@ public class UserProfileActivity extends AppCompatActivity {
                                  public void onComplete(@NonNull Task<Void> task) {
                                      if(task.isSuccessful())
                                      {
-                                         prog3.show();
+                                         prog3.dismiss();
                                          Toast.makeText(UserProfileActivity.this,"Data Successfully Updated", Toast.LENGTH_SHORT).show();
-                                         Intent intent=new Intent(UserProfileActivity.this,HomeActivity.class);
-                                         startActivity(intent);
+
+
                                      }
                                      else {
                                          prog3.dismiss();
@@ -292,8 +298,15 @@ public class UserProfileActivity extends AppCompatActivity {
                  }
 
 
-                 }
+
+
+
+
+             }
         });
+
+
+
 
 
 

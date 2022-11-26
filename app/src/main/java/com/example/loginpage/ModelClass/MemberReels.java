@@ -2,7 +2,15 @@ package com.example.loginpage.ModelClass;
 
 public class MemberReels {
 
-    String date,userProfile,userName,videouri,search,title;
+    String date,userProfile,userName,videouri,search,title,reelsid,userid;
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
     public MemberReels() {
     }
@@ -53,5 +61,13 @@ public class MemberReels {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getReelsid() {
+        return reelsid;
+    }
+
+    public void setReelsid(String reelsid) {
+        this.reelsid = reelsid;
     }
 }

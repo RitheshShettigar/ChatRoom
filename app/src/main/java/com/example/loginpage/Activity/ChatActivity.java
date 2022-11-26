@@ -3,6 +3,7 @@ package com.example.loginpage.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,8 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -36,6 +38,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.loginpage.Adapter.MessageAdapter;
 import com.example.loginpage.ModelClass.MessageModel;
+import com.example.loginpage.ModelClass.modelUser;
 import com.example.loginpage.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -74,10 +77,11 @@ public class ChatActivity extends AppCompatActivity {
     String ReciverImage,ReciverUid,ReciverName,SenderUid,sendername;
     CircleImageView Image;
     TextView Name,status;
-    ImageView attachment,camera,imageView2;
+    ImageView attachment,camera;
    ImageView Sender;
     EditText msgtype1;
-   // Toolbar toolbar;
+    Toolbar tollbar;
+
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseAuth auth;
@@ -106,6 +110,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,8 +134,30 @@ public class ChatActivity extends AppCompatActivity {
         msgtype1=findViewById(R.id.msgtype);
         attachment=findViewById(R.id.attachment);
         camera=findViewById(R.id.camera);
-        imageView2=findViewById(R.id.imageView2);
+      //  imageView2=findViewById(R.id.imageView2);
         status=findViewById(R.id.status);
+
+        tollbar=findViewById(R.id.toolbar);
+        setSupportActionBar(tollbar);
+
+
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+
+
+        tollbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ChatActivity.this,UserProfile.class);
+                intent.putExtra("uid",ReciverUid);
+                intent.putExtra("name",ReciverName);
+                intent.putExtra("profile",ReciverImage);
+                startActivity(intent);
+
+            }
+        });
 
 
         camera.setOnClickListener(new View.OnClickListener() {
@@ -143,18 +172,6 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(ChatActivity.this,HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
 
 
         Intent intent=getIntent();
@@ -180,7 +197,7 @@ public class ChatActivity extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.messageadapter1);
 
-       // recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         messageModelArrayList= new ArrayList<>();
         adapter=new MessageAdapter(this,messageModelArrayList,senderRoom,reciverRoom);
@@ -348,6 +365,9 @@ public class ChatActivity extends AppCompatActivity {
        // SeenMessage(SenderUid);
 
     }
+
+
+
 
 
     //message seen
@@ -528,8 +548,34 @@ public class ChatActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.topmenu, menu);
+        getMenuInflater().inflate(R.menu.chat_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId=item.getItemId();
+
+        if(itemId==R.id.profile){
+            Toast.makeText(this, "menu", Toast.LENGTH_SHORT).show();
+
+        }
+
+        if(itemId==R.id.unfriend){
+            Intent intent=new Intent(ChatActivity.this,ViewFriendActivity.class);
+            intent.putExtra("uid",ReciverUid);
+           // Toast.makeText(this, mUser.getUid(), Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+
+        }
+        if(itemId==R.id.profile){
+            Intent intent=new Intent(ChatActivity.this,UserProfile.class);
+            intent.putExtra("uid",ReciverUid);
+            intent.putExtra("name",ReciverName);
+            intent.putExtra("profile",ReciverImage);
+            startActivity(intent);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

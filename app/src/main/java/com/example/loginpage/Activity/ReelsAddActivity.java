@@ -70,6 +70,7 @@ public class ReelsAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reels_add);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         prog2=new ProgressDialog(this);
         prog2.setMessage("Adding Reels....");
@@ -88,7 +89,7 @@ public class ReelsAddActivity extends AppCompatActivity {
 
         video=findViewById(R.id.video);
         chose_video=findViewById(R.id.chose_video);
-        show_video=findViewById(R.id.show_video);
+
         title=findViewById(R.id.add_title);
         button_upload_main=findViewById(R.id.button_upload_main);
         mediaControllerl=new MediaController(this);
@@ -126,13 +127,7 @@ public class ReelsAddActivity extends AppCompatActivity {
             }
         });
 
-        show_video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
+      
         button_upload_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +175,8 @@ public class ReelsAddActivity extends AppCompatActivity {
                         memberReels.setUserProfile(userProfile);
                         memberReels.setTitle(videoname);
                         memberReels.setDate(strDate);
+                        memberReels.setUserid(mUser.getUid());
+                        memberReels.setReelsid(mAuth.getUid()+strDate);
                         databaseReference.child(mUser.getUid()+strDate).setValue(memberReels);
 
 

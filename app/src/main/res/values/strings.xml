@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">ChatRoom</string>
+
+    <string-array name="type">
+        <item>Select Blood Group</item>
+        <item>A+</item>
+        <item>AB+</item>
+        <item>B+</item>
+        <item>O+</item>
+        <item>A-</item>
+        <item>B-</item>
+        <item>AB-</item>
+        <item>O-</item>
+    </string-array>
+
+
+    <string-array name="menus">
+
+        <item>Menu</item>
+        <item>Delete</item>
+        <item>Share</item>
+    </string-array>
+
+    <string-array name="menus2">
+        <item>Menu</item>
+        <item>Save</item>
+        <item>Share</item>
+    </string-array>
 </resources>

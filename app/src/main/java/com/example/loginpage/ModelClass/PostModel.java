@@ -1,8 +1,16 @@
 package com.example.loginpage.ModelClass;
 
-public class PostModel {
+public class  PostModel {
 
-    String date,postImage,postDesc,userProfile,userName,postid;
+    String date,postImage,postDesc,userProfile,userName,postid,userid;
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
     public PostModel() {
     }
@@ -50,6 +58,8 @@ public class PostModel {
     public String getPostid() {
         return postid;
     }
+
+
 
     public PostModel(String date, String postImage, String postDesc, String userProfile, String userName) {
         this.date = date;

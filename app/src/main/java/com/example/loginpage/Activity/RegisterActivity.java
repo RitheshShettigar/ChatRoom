@@ -36,6 +36,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -194,7 +195,9 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
 
+
                 }
+
             }
         });
 

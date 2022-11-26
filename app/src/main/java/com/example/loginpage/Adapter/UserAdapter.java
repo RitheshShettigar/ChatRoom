@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.loginpage.Activity.ChatActivity;
+import com.example.loginpage.Activity.PostDonloadActivity;
 import com.example.loginpage.Activity.ViewFriendActivity;
 import com.example.loginpage.ModelClass.modelUser;
 import com.example.loginpage.R;
@@ -98,7 +99,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.Viewholder>{
                 intent.putExtra("name",modelUser.getUsername());
                 intent.putExtra("ReciverImage",modelUser.getImageuri());
                 intent.putExtra("uid",modelUser.getId());
+                context.startActivity(intent);
 
+            }
+        });
+
+        holder.Image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, PostDonloadActivity.class);
+                intent.putExtra("posturl",modelUser.getImageuri());
                 context.startActivity(intent);
 
             }

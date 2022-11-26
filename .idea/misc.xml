@@ -15,6 +15,7 @@
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/backgroundbok.xml" value="0.171" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/chat.xml" value="0.128" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/empty_bac.xml" value="0.1985" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/heart.xml" value="0.145" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1985" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/input_add_post_bg.xml" value="0.1565" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/drawable/input_comment_bg.xml" value="0.1565" />
@@ -35,6 +36,7 @@
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_password_reset.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_personal_details.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_post.xml" value="0.264" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_post_donload.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_reela_add.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_reels.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_reels_add.xml" value="0.25" />
@@ -44,6 +46,7 @@
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_list.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_name.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_user_profile2.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/activity_view_friend.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/delete_dialog.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/inout_add_post_bg.xml" value="0.25" />
@@ -62,7 +65,8 @@
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/sditem.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/sender_layout.xml" value="0.264" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/single_reels_row.xml" value="0.25" />
-        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/single_view_post.xml" value="0.2" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/single_view_comment.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/single_view_post.xml" value="0.264" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/layout/user_item.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/menu/chat_menu.xml" value="0.25" />
         <entry key="..\:/Users/rites/AndroidStudioProjects/loginpage/app/src/main/res/menu/menu.xml" value="0.25" />

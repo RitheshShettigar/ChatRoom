@@ -1,5 +1,7 @@
 package com.example.loginpage.Activity;
 
+import static android.media.CamcorderProfile.get;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +21,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.loginpage.Adapter.PostAdapter;
+import com.example.loginpage.Adapter.PostCommentAdapter;
+import com.example.loginpage.Adapter.ReelsAdapter;
 import com.example.loginpage.Adapter.UserAdapter;
+import com.example.loginpage.ModelClass.Commentmodel;
+import com.example.loginpage.ModelClass.MemberReels;
 import com.example.loginpage.ModelClass.PostModel;
 import com.example.loginpage.ModelClass.modelUser;
 import com.example.loginpage.R;
@@ -68,6 +74,10 @@ public class PostActivity extends AppCompatActivity {
     PostAdapter postAdapter;
     ArrayList<PostModel> postModelArrayList;
 
+    PostCommentAdapter postCommentAdapterr;
+    ArrayList<Commentmodel> commentmodelArrayList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +113,9 @@ public class PostActivity extends AppCompatActivity {
         }
     });
 
+
+
+
         PostRef= FirebaseDatabase.getInstance().getReference().child("Post");
         postImageRef= FirebaseStorage.getInstance().getReference().child("PostImage");
 
@@ -130,6 +143,36 @@ public class PostActivity extends AppCompatActivity {
            public void onCancelled(@NonNull DatabaseError error) {
            }
        });
+
+
+
+
+       //comment
+        DatabaseReference root1= FirebaseDatabase.getInstance().getReference().child("PostComment");
+
+     //  Recyclerview=findViewById(R.id.commentRecycler);
+     //  Recyclerview.setHasFixedSize(true);
+     //  Recyclerview.setLayoutManager(new LinearLayoutManager(this));
+     //  commentmodelArrayList= new ArrayList<>();
+     //  postCommentAdapterr=new PostCommentAdapter(this,commentmodelArrayList);
+     //  Recyclerview.setAdapter(postAdapter);
+
+    // root1.addValueEventListener(new ValueEventListener() {
+    //     @Override
+    //     public void onDataChange(@NonNull DataSnapshot snapshot) {
+    //         commentmodelArrayList.clear();
+    //         for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+    //             Commentmodel commentmodel=dataSnapshot.getValue(Commentmodel .class);
+    //             commentmodelArrayList.add(commentmodel);
+    //         }
+    //         postCommentAdapterr.notifyDataSetChanged();
+    //     }
+    //     @Override
+    //     public void onCancelled(@NonNull DatabaseError error) {
+    //     }
+    // });
+
+        //end comment
 
 
 
@@ -190,6 +233,8 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
+
+
     //photo add
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -235,7 +280,11 @@ public class PostActivity extends AppCompatActivity {
                              hashMap.put("postDesc",postDes);
                              hashMap.put("userProfile",userProfile);
                              hashMap.put("userName",username);
-                             PostRef.child(mUser.getUid()+strDate).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+                             hashMap.put("postid",mUser.getUid()+strDate);
+                             hashMap.put("userid",mUser.getUid());
+
+
+                            PostRef.child(mUser.getUid()+strDate).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
                                  @Override
                                  public void onComplete(@NonNull Task task) {
                                      if(task.isSuccessful())

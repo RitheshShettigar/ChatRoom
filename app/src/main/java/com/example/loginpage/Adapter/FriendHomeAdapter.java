@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.loginpage.Activity.ChatActivity;
+import com.example.loginpage.Activity.PostDonloadActivity;
 import com.example.loginpage.Activity.ViewFriendActivity;
 import com.example.loginpage.ModelClass.FriendHomemodel;
 import com.example.loginpage.ModelClass.modelUser;
@@ -103,6 +104,16 @@ public class FriendHomeAdapter  extends RecyclerView.Adapter<FriendHomeAdapter.V
 
                 context.startActivity(intent);
                 //Toast.makeText(context, friendHomemodel.getUsername(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        holder.Image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, PostDonloadActivity.class);
+                intent.putExtra("posturl",friendHomemodel.getImageuri());
+                context.startActivity(intent);
 
             }
         });
