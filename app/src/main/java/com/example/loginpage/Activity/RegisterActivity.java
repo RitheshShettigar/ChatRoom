@@ -130,6 +130,8 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+
+
                                 DatabaseReference reference=database.getReference().child("User").child(Auth.getUid());
                                 StorageReference storageReference=storage.getReference().child("upload").child(Auth.getUid());
                                 if( imageUri!=null){
@@ -197,6 +199,9 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 }
+
+
+
 
             }
         });

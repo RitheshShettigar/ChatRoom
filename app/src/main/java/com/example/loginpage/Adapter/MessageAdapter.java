@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.telephony.SmsMessage;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,7 +43,9 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,6 +86,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MessageModel messageModel=messageModelArrayList.get(position);
+
+
 
 
 
@@ -153,6 +158,17 @@ public class MessageAdapter extends RecyclerView.Adapter {
             viewHolder.stxtmessage.setText(messageModel.getMessage());
             Picasso.get().load(simage).into(viewHolder.scircleImageView);
 
+
+            //convert time stamp
+            long timetap=messageModel.getTimestamp();
+
+            Calendar cal=Calendar.getInstance(Locale.ENGLISH);
+            cal.setTimeInMillis(Long.parseLong(String.valueOf(timetap)));
+            String dateTime= DateFormat.format("dd/mm/yyyy hh:mm aa",cal).toString();
+
+            viewHolder.date.setText(dateTime);
+
+
 //delete msg
             viewHolder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -207,38 +223,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
             //delete msg
 
 
-            //time
-           /* FirebaseDatabase.getInstance().getReference()
-                    .child("chats")
-                    .child(senderRoom)
-                    .child("messages")
-                  //`  .child(receiverRoom)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()) {
-                               // String lastMsg = snapshot.child("lastMsg").getValue(String.class);
-                                String time = snapshot.child("timestamp").getValue(String.class);
-
-                              //  SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-                                viewHolder.date.messageModel.getTimestamp());
-                                Toast.makeText(context, "ggg", Toast.LENGTH_SHORT).show();
-
-                            }
-                            else {
-                                viewHolder.date.setText("00:00");
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });*/
-
-            //end time
-
             //reaction
         if(messageModel.getFelling()>=0) {
             viewHolder.felling.setImageResource(reaction[(int) messageModel.getFelling()]);
@@ -277,13 +261,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
 
 
-
-
-
-
-
-
-
+//..........................................................................
 
 
         {
@@ -360,7 +338,18 @@ public class MessageAdapter extends RecyclerView.Adapter {
             });
             //end reaction
 
+            //convert time stamp
+            long timetap=messageModel.getTimestamp();
+
+            Calendar cal=Calendar.getInstance(Locale.ENGLISH);
+            cal.setTimeInMillis(Long.parseLong(String.valueOf(timetap)));
+            String dateTime= DateFormat.format("dd/mm/yyyy hh:mm aa",cal).toString();
+
+            viewHolder.rtime.setText(dateTime);
+
+
         }
+
 
     }
 
@@ -413,7 +402,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
             rcircleImageView=itemView.findViewById(R.id.rimage);
             rtxtmessage=itemView.findViewById(R.id.rtxtMessage);
             felling=itemView.findViewById(R.id.feeling);
-            rtime=itemView.findViewById(R.id.time);
+            rtime=itemView.findViewById(R.id.date);
             rrimage=itemView.findViewById(R.id.rrimage);
             seen=itemView.findViewById(R.id.seen);
             linearLayout=itemView.findViewById(R.id.rlinearLayout);

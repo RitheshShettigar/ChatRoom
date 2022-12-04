@@ -225,6 +225,8 @@ public class HomeActivity extends AppCompatActivity {
                        startActivity(new Intent(getApplicationContext(),ReelsActivity.class));
                        overridePendingTransition(0,0);
                        return true;
+
+
                }
                return false;
            }
@@ -367,6 +369,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu1, menu);
+        menu.findItem(R.id.action_add_participants).setVisible(false);
+        menu.findItem(R.id.action_chat_ingo).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -387,6 +391,13 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(HomeActivity.this, UserProfileActivity.class);
                 startActivity(intent1);
                 finish();
+
+
+            case R.id.group:
+                Intent intent2 = new Intent(HomeActivity.this,GroupActivity.class);
+                startActivity(intent2);
+                finish();
+
 
         }
         return false;

@@ -34,6 +34,7 @@ public class UserProfile extends AppCompatActivity {
 
         name.setText(username);
         Picasso.get().load(userprofile).into(image);
+
         
 
         image.setOnClickListener(new View.OnClickListener() {

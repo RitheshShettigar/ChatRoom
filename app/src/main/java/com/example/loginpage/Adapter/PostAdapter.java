@@ -4,7 +4,10 @@ import static android.media.CamcorderProfile.get;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +33,7 @@ import com.example.loginpage.ModelClass.modelUser;
 import com.example.loginpage.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.BiMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +43,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,11 +58,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     Context context;
     ArrayList<PostModel>postModelArrayList;
 
+
+
     DatabaseReference LikeRef,CommentRef;
     FirebaseUser mUser;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     String username,userProfile;
+
+
 
 
 
@@ -76,6 +87,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
      PostModel postModel=postModelArrayList.get(position);
+
 
         mAuth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -218,6 +230,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
 
                 }else if (position==2){
+                    BitmapDrawable bitmapDrawable=(BitmapDrawable)holder.post.getDrawable();
+                    if(bitmapDrawable==null){
+                        //post without image
+                       // shareTextonly();
+                    }else
+                    {
+                        //post with image
+                        Bitmap bitmap=bitmapDrawable.getBitmap();
+                        shareImageAndText(bitmap);
+                    }
                     Toast.makeText(context.getApplicationContext(), "share",Toast.LENGTH_SHORT).show();
 
 
@@ -232,6 +254,47 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         //spinner
 
   }
+
+    private void shareImageAndText(Bitmap bitmap) {
+        Uri uri=saveImagetoShare(bitmap);
+
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Subject Here");
+        intent.setType("image/png");
+        context.startActivity(Intent.createChooser(intent,"Share Via"));
+    }
+
+    private Uri saveImagetoShare(Bitmap bitmap) {
+        File imageFloader=new File(context.getCacheDir(),"image");
+        Uri uri=null;
+        try{
+            imageFloader.mkdirs();
+            File file=new File(imageFloader,"shared_image.png");
+
+            FileOutputStream stream=new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG,90,stream);
+            stream.flush();
+            stream.close();
+            uri= FileProvider.getUriForFile(context,"com.example.loginpage.MyFirebaseService.fileprovider",file);
+
+        }catch (Exception e){
+            Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+        return uri;
+    }
+
+    private void shareTextonly() {
+
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Subject Here");
+       // intent.putExtra(Intent.EXTRA_TEXT)
+        //context.startActivities(Intent.createChooser(intent,"Share Via"));
+    }
+
+
     //send comment
     private void AddComment(Viewholder holder, String postkey, DatabaseReference commentRef, String uid, String comment) {
         HashMap hashMap = new HashMap();

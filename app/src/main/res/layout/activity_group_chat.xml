@@ -7,6 +7,60 @@
     android:background="@drawable/bg"
     tools:context=".Activity.GroupChatActivity">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:background="@color/purple_500"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/groupIconIv"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/avatar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/groupTitleIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mian Asad Ali"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Online"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
@@ -22,23 +76,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
             android:gravity="center"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/GmessageBox"
+                android:id="@+id/msgtype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="Type a message..."
-                android:inputType="textPersonName"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:textSize="14sp" />
 
             <ImageView
-                android:id="@+id/Gattachment"
+                android:id="@+id/attachment1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="12dp"
@@ -57,26 +111,37 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/chatRv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="visible"
+        app:stackFromEnd="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_group_left"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+
+
 
     <ImageView
         android:id="@+id/Gsender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:background="@color/purple_500"
+        android:backgroundTint="@color/purple_700"
+        android:background="@drawable/shape_item"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView"
         android:src="@drawable/ic_baseline_send_24"
         app:tint="@color/white" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

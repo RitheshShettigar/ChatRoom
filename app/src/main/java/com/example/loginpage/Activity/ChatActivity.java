@@ -198,12 +198,12 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.messageadapter1);
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+      //  recyclerView.setLayoutManager(new LinearLayoutManager(this));
         messageModelArrayList= new ArrayList<>();
         adapter=new MessageAdapter(this,messageModelArrayList,senderRoom,reciverRoom);
         recyclerView.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
+        //LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+      //  linearLayoutManager.setStackFromEnd(true);
 
 
 
@@ -218,6 +218,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String Status=snapshot.getValue(String.class);
+
                     if(!Status.isEmpty()){
                         if(Status.equals("offline")){
                             status.setVisibility(View.GONE);
