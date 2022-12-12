@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginPage">
         <activity
+            android:name=".Activity.RequestFriendShowActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.GroupEditActivity"
             android:exported="false" />
         <activity
@@ -129,11 +132,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-
-
-
-
     </application>
 
 </manifest>

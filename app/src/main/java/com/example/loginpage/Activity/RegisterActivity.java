@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mDatabase;
 
-    String emailPattern = "[a-zA-Z0-9._-]+@gmail+\\.+com+";
+    String emailPattern = "[a-zA-Z0-9]+@gmail+\\.+com+";
 
 
     @Override

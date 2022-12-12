@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -371,6 +372,8 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu1, menu);
         menu.findItem(R.id.action_add_participants).setVisible(false);
         menu.findItem(R.id.action_chat_ingo).setVisible(false);
+
+
         return super.onCreateOptionsMenu(menu);
     }
 

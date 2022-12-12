@@ -47,7 +47,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     CircleImageView setting_profile;
     EditText setting_name,status;
-    TextView logout,personalDetails,passwordreset,reels;
+    TextView logout,personalDetails,passwordreset,reels,requestfriend;
     FirebaseAuth Auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
@@ -73,6 +73,15 @@ public class UserProfileActivity extends AppCompatActivity {
         personalDetails=findViewById(R.id.personalDetails);
         passwordreset=findViewById(R.id.passwordreset);
         status=findViewById(R.id.status);
+        requestfriend=findViewById(R.id.requestfriend);
+
+        requestfriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UserProfileActivity.this,RequestFriendShowActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         Auth=FirebaseAuth.getInstance();
