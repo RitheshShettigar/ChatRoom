@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         password=findViewById(R.id.password2);
         reg=findViewById(R.id.reg);
         btn_login=findViewById(R.id.login);
-        otp=findViewById(R.id.otp);
+       // otp=findViewById(R.id.otp);
         TextView textView=findViewById(R.id.forgotpassword);
 
         prog1=new ProgressDialog(this);
@@ -105,8 +105,10 @@ public class LoginActivity extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
+               // Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+               // startActivity(intent);
             }
         });
     }

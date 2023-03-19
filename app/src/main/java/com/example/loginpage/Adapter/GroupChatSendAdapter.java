@@ -101,7 +101,7 @@ public class GroupChatSendAdapter extends RecyclerView.Adapter<GroupChatSendAdap
         //convert time stamp
         Calendar cal=Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Long.parseLong(timetap));
-        String dateTime= DateFormat.format("dd/mm/yyyy hh:mm aa",cal).toString();
+        String dateTime= DateFormat.format("dd/M/yyyy hh:mm aa",cal).toString();
 
 
 

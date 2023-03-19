@@ -37,9 +37,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PersonalDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    TextView personalName;
+    TextView personalName,Email,group;
     CircleImageView personalImage;
-    EditText Email,phoneNumber,Qualification,nationality,DOB;
+    EditText phoneNumber,Qualification,nationality,DOB,name2,Nickname;
     Spinner bloodGroup;
     RadioGroup gender;
     Button save;
@@ -68,6 +68,9 @@ public class PersonalDetails extends AppCompatActivity implements AdapterView.On
         gender=findViewById(R.id.gender);
         save=findViewById(R.id.save);
         DOB=findViewById(R.id.dob);
+        name2=findViewById(R.id.name2);
+        Nickname=findViewById(R.id.Nickname);
+        group=findViewById(R.id.group);
 
         //spinner
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.type,R.layout.support_simple_spinner_dropdown_item);
@@ -88,23 +91,32 @@ public class PersonalDetails extends AppCompatActivity implements AdapterView.On
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference("UserProfile").child(mAuth.getUid());
+
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-             //   String email = snapshot.child("email").getValue().toString();
-             //   String phone=snapshot.child("phone").getValue().toString();
-             //   String gender1=snapshot.child("gender").getValue().toString();
-             //   String qualification = snapshot.child("qualification").getValue().toString();
-             //   String nationality=snapshot.child("nationality").getValue().toString();
-             //   String dob=snapshot.child("DOB").getValue().toString();
-             //   String blood=snapshot.child("blood").getValue().toString();
+               String email = snapshot.child("email").getValue().toString();
+                String username1 = snapshot.child("username").getValue().toString();
+              String phone=snapshot.child("phone").getValue().toString();
+                String gender1=snapshot.child("gender").getValue().toString();
+                String qualification = snapshot.child("qualification").getValue().toString();
+               String nationality1=snapshot.child("nationality").getValue().toString();
+               String dob=snapshot.child("DOB").getValue().toString();
+                String blood=snapshot.child("blood").getValue().toString();
+                String NickName1=snapshot.child("Nickname").getValue().toString();
+
+                Toast.makeText(PersonalDetails.this,blood, Toast.LENGTH_SHORT).show();
 
 
-             //  Email.setText(email);
-             //  phoneNumber.setText(phone);
-             //  Qualification.setText(qualification);
-             //  DOB.setText(dob);
-              //  gender.checkse(gender1);
+             Email.setText(email);
+              phoneNumber.setText(phone);
+              Nickname.setText(NickName1);
+              Qualification.setText(qualification);
+               DOB.setText(dob);
+               name2.setText(username1);
+               nationality.setText(nationality1);
+                group.setText(blood);
+             //  gender.check(Integer.parseInt(gender1));
 
 
             }
@@ -153,12 +165,14 @@ public class PersonalDetails extends AppCompatActivity implements AdapterView.On
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserProfile").child(mAuth.getUid());
         HashMap<String, Object> map = new HashMap<>();
         map.put("email",Email.getText().toString());
+        map.put("Nickname",Nickname.getText().toString());
         map.put("phone",phoneNumber.getText().toString());
         map.put("gender",gender.toString());
         map.put("qualification", Qualification.getText().toString());
         map.put("nationality",nationality.getText().toString());
         map.put("username",name.toString());
         map.put("DOB",DOB.getText().toString());
+        map.put("id",mAuth.getUid());
         map.put("blood",bloodGroup.getSelectedItem().toString());
         mDatabase.setValue(map);
         Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();

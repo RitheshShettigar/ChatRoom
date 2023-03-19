@@ -286,7 +286,7 @@ public class GroupInfoActivity extends AppCompatActivity {
                     //convert time stamp
                     Calendar cal=Calendar.getInstance(Locale.ENGLISH);
                     cal.setTimeInMillis(Long.parseLong(timestamp));
-                    String dateTime= DateFormat.format("dd/mm/yyyy hh:mm aa",cal).toString();
+                    String dateTime= DateFormat.format("dd/M/yyyy hh:mm aa",cal).toString();
 
                     loadCreatotInfo(dateTime,createdBy);
 

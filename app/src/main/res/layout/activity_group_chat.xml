@@ -22,6 +22,7 @@
 
 
 
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/groupIconIv"
                 android:layout_width="42dp"

@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
     ProgressDialog prog2;
     Uri imageUri;
     String imageURI;
+    String phone1;
 
 
     private FirebaseAuth Auth;
@@ -88,6 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register=findViewById(R.id.register);
         log=findViewById(R.id.log);
 
+        Intent intent=getIntent();
+        phone1=intent.getStringExtra("phone1");
 
         log.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +136,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                                 DatabaseReference reference=database.getReference().child("User").child(Auth.getUid());
+                                DatabaseReference reference1=database.getReference().child("UserProfile").child(Auth.getUid());
                                 StorageReference storageReference=storage.getReference().child("upload").child(Auth.getUid());
                                 if( imageUri!=null){
                                     storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -156,6 +160,24 @@ public class RegisterActivity extends AppCompatActivity {
                                                                 }else {
                                                                     Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
                                                                 }
+
+                                                            }
+                                                        });
+                                                        HashMap<String, Object> map = new HashMap<>();
+                                                        map.put("username",username);
+                                                        map.put("Nickname","");
+                                                        map.put("email",Email);
+                                                        map.put("phone",phone1);
+                                                        map.put("gender","");
+                                                        map.put("qualification","");
+                                                        map.put("nationality","");
+                                                        map.put("DOB","");
+                                                        map.put("id",Auth.getUid());
+                                                        map.put("blood","");
+
+                                                        reference1.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
 
                                                             }
                                                         });
@@ -188,22 +210,45 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         }
                                     });
+                                    HashMap<String, Object> map = new HashMap<>();
+                                    map.put("username",username);
+                                    map.put("Nickname","");
+                                    map.put("email",Email);
+                                    map.put("phone","");
+                                    map.put("gender","");
+                                    map.put("qualification","");
+                                    map.put("nationality","");
+                                    map.put("DOB","");
+                                    map.put("id",Auth.getUid());
+                                    map.put("blood","");
+                                    reference1.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                        }
+                                    });
                                 }
+
 
                             }else{
                                 prog2.dismiss();
                                 Toast.makeText(RegisterActivity.this, "Email Id Already Used", Toast.LENGTH_SHORT).show();
                             }
+
+
                         }
                     });
 
 
                 }
 
-
+               //DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("UserProfile").child(Auth.getUid());
+               //HashMap<String, Object> map = new HashMap<>();
+               //map.put("name",username.toString());
 
 
             }
+
         });
 
 

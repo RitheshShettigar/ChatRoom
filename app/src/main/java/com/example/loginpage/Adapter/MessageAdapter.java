@@ -164,7 +164,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
             Calendar cal=Calendar.getInstance(Locale.ENGLISH);
             cal.setTimeInMillis(Long.parseLong(String.valueOf(timetap)));
-            String dateTime= DateFormat.format("dd/mm/yyyy hh:mm aa",cal).toString();
+            String dateTime= DateFormat.format("dd/M/yyyy hh:mm aa",cal).toString();
 
             viewHolder.date.setText(dateTime);
 

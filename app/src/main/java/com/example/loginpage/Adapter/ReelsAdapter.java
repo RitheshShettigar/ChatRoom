@@ -1,6 +1,7 @@
 package com.example.loginpage.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.loginpage.Activity.UserProfile;
 import com.example.loginpage.ModelClass.MemberReels;
 import com.example.loginpage.ModelClass.PostModel;
 import com.example.loginpage.R;
@@ -60,6 +62,15 @@ public class ReelsAdapter extends RecyclerView.Adapter<ReelsAdapter.Viewholder>{
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         MemberReels memberReelsl=memberReelsArrayList.get(position);
+
+        holder.UserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, UserProfile.class);
+                context.startActivity(intent);
+
+            }
+        });
 
         mAuth= FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();

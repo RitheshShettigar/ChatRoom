@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.loginpage.Activity.PostDonloadActivity;
+import com.example.loginpage.Activity.UserProfile;
 import com.example.loginpage.ModelClass.FriendHomemodel;
 import com.example.loginpage.ModelClass.PostModel;
 import com.example.loginpage.ModelClass.modelUser;
@@ -87,6 +88,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
      PostModel postModel=postModelArrayList.get(position);
+
+
+
+        holder.UserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, UserProfile.class);
+                context.startActivity(intent);
+
+            }
+        });
 
 
         mAuth=FirebaseAuth.getInstance();
@@ -322,7 +334,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
     private String calculateTimeAgo(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         try {
             long time = sdf.parse(date).getTime();
             long now = System.currentTimeMillis();
